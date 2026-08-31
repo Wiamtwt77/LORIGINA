@@ -28,7 +28,7 @@ export default async function handler(req, res) {
                 "X-Title": "Lorigina Store"
             },
             body: JSON.stringify({
-                model: "google/gemini-1.5-flash", // الاسم الصحيح والمعتمد في OpenRouter
+                model: "google/gemini-flash-1.5", // المعرّف المعتمد رسمياً في OpenRouter
                 messages: [
                     { 
                         role: "system", 
