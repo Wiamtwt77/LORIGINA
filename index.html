@@ -132,7 +132,7 @@
         .faq-q { font-weight: 600; font-size: 1.02rem; color: var(--text-dark); margin-bottom: 6px; }
         .faq-a { font-size: 0.9rem; color: var(--text-muted); font-weight: 300; }
 
-        /* زر واتساب العائم */
+        /* زر واتساب العائم للاستفسارات */
         .whatsapp-floating-btn {
             position: fixed; bottom: 30px; right: 30px; background-color: var(--whatsapp-green); color: #fff;
             border: none; padding: 12px 20px; border-radius: 35px; cursor: pointer; display: flex; align-items: center; gap: 10px;
@@ -167,12 +167,12 @@
         }
         .checkout-form input:focus { border-color: var(--dark-pink); background: #fff; }
 
-        .btn-whatsapp-submit {
-            width: 100%; background-color: var(--whatsapp-green); color: #fff; border: none; padding: 12px;
+        .btn-submit-order {
+            width: 100%; background-color: var(--dark-pink); color: #fff; border: none; padding: 12px;
             border-radius: 4px; font-family: 'Tajawal', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer;
             margin-top: 10px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-        .btn-whatsapp-submit:hover { background-color: var(--whatsapp-hover); }
+        .btn-submit-order:hover { background-color: var(--dark-pink-hover); }
 
         footer { border-top: 1px solid var(--border); padding: 2.5rem; text-align: center; font-size: 0.88rem; color: var(--text-muted); background-color: var(--bg-card); }
     </style>
@@ -209,7 +209,7 @@
         <h2 class="faq-title">أسئلة شائعة</h2>
         <div class="faq-item">
             <div class="faq-q">كيف يتم تأكيد الطلب؟</div>
-            <div class="faq-a">بعد اختيار المنتجات وتحديد الكميات في حقيبة المشتريات، يُحفظ طلبك في لوحة التحكم ويتم تحويلك تلقائياً للواتساب لاعتماده.</div>
+            <div class="faq-a">بعد إدخال معلوماتك في حقيبة المشتريات وتأكيد الطلب، سيتم حفظه مباشرة في نظامنا وسنتواصل معك هاتفياً أو عبر واتساب لتأكيد الشحن.</div>
         </div>
         <div class="faq-item">
             <div class="faq-q">هل توجد خدمة توصيل لجميع الولايّات؟</div>
@@ -217,10 +217,10 @@
         </div>
     </section>
 
-    <!-- زر واتساب العائم -->
-    <a href="https://wa.me/213782871508?text=مرحباً، أود الاستفسار عن منتجات متجر Lorigina ✨" target="_blank" class="whatsapp-floating-btn">
+    <!-- زر واتساب العائم للاستفسارات -->
+    <a href="https://wa.me/213782871508?text=مرحباً، لدي استفسار بخصوص منتجات متجر Lorigina ✨" target="_blank" class="whatsapp-floating-btn" title="تواصل معنا لأي استفسار">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-        <span>راسلنا واتساب</span>
+        <span>استفسار واتساب</span>
     </a>
 
     <!-- حقيبة المشتريات -->
@@ -239,7 +239,7 @@
             المجموع الكلي: <span id="cartTotalPrice">0</span> DA
         </div>
 
-        <form id="checkoutForm" class="checkout-form" onsubmit="submitOrderWhatsApp(event)">
+        <form id="checkoutForm" class="checkout-form" onsubmit="submitOrder(event)">
             <div class="form-group">
                 <label>الاسم الكامل</label>
                 <input type="text" id="clientName" required>
@@ -252,9 +252,8 @@
                 <label>عنوان التوصيل (الولاية والمدينة)</label>
                 <input type="text" id="clientAddress" required>
             </div>
-            <button type="submit" class="btn-whatsapp-submit">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                تأكيد الطلب عبر واتساب
+            <button type="submit" class="btn-submit-order">
+                تأكيد الطلب الآن
             </button>
         </form>
     </div>
@@ -267,7 +266,6 @@
         let products = [];
         let cart = [];
         
-        // الروابط الخاصة بشيت المنتجات وشيت لوحة التحكم
         const productsApiURL = "https://script.google.com/macros/s/AKfycbxCfkKY4ZkITQ1zvsziKUBoVar9FUTkGol8aYLASPcq6I2y3_oO7Z78JuY6RikhSei-/exec";
         const controlApiURL = "https://script.google.com/macros/s/AKfycbwju2DKeIhUsQVJox6bdnFA6El2dsC_yDFGh2JKwNw43HgDgy8G_QFkGWZCORX5EYKFHA/exec";
 
@@ -348,14 +346,14 @@
             
             const list = document.getElementById('cartItemsList');
             const totalContainer = document.getElementById('cartTotalContainer');
+            const checkoutForm = document.getElementById('checkoutForm');
             
             if(cart.length === 0) {
-                list.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 2rem;">الحقيبة فارغة حالياً</p>';
-                totalContainer.style.display = 'none';
                 return;
             }
 
             totalContainer.style.display = 'block';
+            checkoutForm.style.display = 'block';
             let grandTotal = 0;
 
             list.innerHTML = cart.map((item, index) => {
@@ -383,7 +381,7 @@
             document.getElementById('cartOverlay').classList.toggle('active');
         }
 
-        function submitOrderWhatsApp(e) {
+        function submitOrder(e) {
             e.preventDefault();
             if(cart.length === 0) {
                 alert('الحقيبة فارغة.');
@@ -395,10 +393,9 @@
             const address = document.getElementById('clientAddress').value;
             
             let grandTotal = cart.reduce((sum, item) => sum + (Number(item.price) * item.quantity), 0);
-            let itemsStr = cart.map(item => `• ${item.name} (الكمية: ${item.quantity}) - ${item.price * item.quantity} DA`).join('%0A');
             let itemsNamesStr = cart.map(item => `${item.name} (${item.quantity})`).join(', ');
 
-            // تسجيل الطلب في لوحة التحكم تلقائياً عبر الـ API الثاني
+            // إرسال الطلب وحفظه في لوحة التحكم في شيت جوجل تلقائياً
             fetch(controlApiURL, {
                 method: "POST",
                 mode: "no-cors",
@@ -412,10 +409,22 @@
                 })
             }).catch(err => console.log("Order logged", err));
 
-            // فتح الواتساب بتفاصيل الطلب
-            let message = `مرحباً، أود تأكيد طلب جديد:%0A%0A*المنتجات:*%0A${itemsStr}%0A%0A*المجموع الكلي:* ${grandTotal} DA%0A%0A*الاسم:* ${name}%0A*الهاتف:* ${phone}%0A*العنوان:* ${address}`;
-            
-            window.open(`https://wa.me/213782871508?text=${message}`, '_blank');
+            // إظهار رسالة النجاح داخل الحقيبة وتفريغ السلة
+            const cartItemsContainer = document.getElementById('cartItemsList');
+            document.getElementById('cartTotalContainer').style.display = 'none';
+            document.getElementById('checkoutForm').style.display = 'none';
+            document.getElementById('cartCount').innerText = '0';
+
+            cartItemsContainer.innerHTML = `
+                <div style="text-align: center; padding: 2.5rem 1rem;">
+                    <div style="font-size: 2.5rem; color: var(--dark-pink); margin-bottom: 10px;">✨</div>
+                    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--text-dark);">تم تأكيد طلبك بنجاح!</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">شكراً لاختيارك LORIGINA. تم تسجيل طلبك في لوحة التحكم، وسنتصل بك قريباً للتأكيد والشحن.</p>
+                    <a href="https://wa.me/213782871508?text=مرحباً، لقد أكدت طلبي للتو واسمي ${encodeURIComponent(name)} وأود الاستفسار عن..." target="_blank" style="display: inline-block; background-color: var(--whatsapp-green); color: #fff; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-size: 0.9rem; font-weight: 600;">التواصل عبر واتساب للاستفسار</a>
+                </div>
+            `;
+
+            cart = [];
         }
 
         // جلب المنتجات عند فتح الصفحة
