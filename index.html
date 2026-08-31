@@ -40,7 +40,7 @@
             z-index: 100;
         }
 
-        .logo-container { display: flex; flex-direction: column; cursor: pointer; }
+        .logo-container { display: flex; flex-direction: column; }
         .logo { font-size: 1.4rem; font-weight: 700; color: var(--text-dark); letter-spacing: 3px; text-transform: uppercase; }
         .logo-tagline { font-size: 0.7rem; color: var(--dark-pink); letter-spacing: 1.5px; font-weight: 600; text-transform: uppercase; margin-top: -2px; }
 
@@ -62,10 +62,11 @@
             transition: all 0.2s ease;
         }
         .cart-trigger:hover { border-color: var(--dark-pink); color: var(--dark-pink); }
+
         .cart-badge { background-color: var(--dark-pink); color: #fff; font-size: 0.75rem; padding: 1px 6px; border-radius: 50%; }
 
-        .hero { padding: 4rem 2rem 3rem; text-align: center; max-width: 800px; margin: 0 auto; }
-        .hero h1 { font-size: 2.3rem; font-weight: 300; color: var(--text-dark); margin-bottom: 1rem; }
+        .hero { padding: 5rem 2rem 4rem; text-align: center; max-width: 800px; margin: 0 auto; }
+        .hero h1 { font-size: 2.5rem; font-weight: 300; color: var(--text-dark); margin-bottom: 1rem; }
         .hero h1 span { font-weight: 700; color: var(--dark-pink); }
         .hero p { font-size: 1.05rem; color: var(--text-muted); font-weight: 300; }
 
@@ -84,20 +85,21 @@
         }
         .product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(17, 17, 17, 0.06); border-color: var(--pastel-pink); }
 
-        .product-img-wrapper {
-            height: 240px;
+        /* حاوية الصورة المثبتة لمنع أي تمدد */
+        .product-img-container {
+            height: 220px;
+            width: 100%;
             background-color: #F4ECEF;
             position: relative;
-            overflow: hidden;
             border-bottom: 1px solid var(--border);
+            overflow: hidden;
         }
-        .product-img-wrapper img {
+        .product-img-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            display: block;
         }
-        .product-card:hover .product-img-wrapper img { transform: scale(1.03); }
 
         .stock-badge {
             position: absolute;
@@ -132,45 +134,44 @@
         .btn-add:hover { background-color: var(--dark-pink-hover); }
         .btn-add:disabled { background-color: #ccc; cursor: not-allowed; }
 
-        /* نافذة تفاصيل المنتج المنبثقة */
+        /* نافذة تفاصيل المنتج المخصصة */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(17, 17, 17, 0.5); backdrop-filter: blur(3px); z-index: 1100;
-            display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s ease; padding: 1rem;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center; padding: 1rem;
         }
         .modal-overlay.active { opacity: 1; visibility: visible; }
 
         .product-modal {
-            background: var(--bg-card); width: 100%; max-width: 850px; border-radius: 8px; overflow: hidden;
-            display: grid; grid-template-columns: 1fr 1fr; box-shadow: 0 20px 40px rgba(0,0,0,0.15); transform: translateY(20px); transition: transform 0.3s ease;
-            position: relative; max-height: 90vh;
+            background: var(--bg-card); width: 100%; max-width: 850px; border-radius: 8px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1); overflow: hidden; display: grid; grid-template-columns: 1fr 1fr;
+            transform: translateY(20px); transition: transform 0.3s ease; position: relative; max-height: 90vh;
         }
         .modal-overlay.active .product-modal { transform: translateY(0); }
-        .modal-close {
-            position: absolute; top: 15px; left: 15px; background: var(--bg-main); border: 1px solid var(--border);
-            width: 35px; height: 35px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; color: var(--text-dark);
-        }
-        .modal-close:hover { background: var(--dark-pink); color: #fff; border-color: var(--dark-pink); }
 
-        .modal-gallery { padding: 2rem; background: #F8F2F4; display: flex; flex-direction: column; gap: 15px; justify-content: center; align-items: center; }
-        .modal-main-img { width: 100%; height: 300px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); background: #fff; }
-        .modal-thumbs { display: flex; gap: 10px; overflow-x: auto; width: 100%; padding-bottom: 5px; }
-        .modal-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; cursor: pointer; border: 2px solid transparent; opacity: 0.6; transition: all 0.2s; }
-        .modal-thumb.active, .modal-thumb:hover { border-color: var(--dark-pink); opacity: 1; }
+        .modal-gallery { padding: 1.5rem; background: #FAF6F8; display: flex; flex-direction: column; gap: 12px; align-items: center; justify-content: center; border-left: 1px solid var(--border); }
+        .modal-main-img { width: 100%; height: 280px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); background: #fff; }
+        .modal-thumbs { display: flex; gap: 8px; overflow-x: auto; width: 100%; padding-bottom: 5px; }
+        .modal-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 2px solid transparent; cursor: pointer; transition: border-color 0.2s; }
+        .modal-thumb.active { border-color: var(--dark-pink); }
 
-        .modal-content-side { padding: 2.5rem; display: flex; flex-direction: column; overflow-y: auto; }
-        .modal-title { font-size: 1.5rem; font-weight: 700; color: var(--text-dark); margin-bottom: 10px; }
-        .modal-price { font-size: 1.3rem; font-weight: 700; color: var(--dark-pink); margin-bottom: 15px; }
-        .modal-desc { font-size: 0.95rem; color: var(--text-muted); font-weight: 300; margin-bottom: 2rem; line-height: 1.8; }
-        .modal-actions { margin-top: auto; display: flex; gap: 15px; align-items: center; border-top: 1px solid var(--border); padding-top: 1.5rem; }
+        .modal-content-side { padding: 2rem; display: flex; flex-direction: column; overflow-y: auto; }
+        .modal-close-btn { position: absolute; top: 15px; left: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); z-index: 10; }
+        
+        .modal-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 10px; color: var(--text-dark); }
+        .modal-price { font-size: 1.25rem; font-weight: 700; color: var(--dark-pink); margin-bottom: 15px; }
+        .modal-desc { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 2rem; font-weight: 300; line-height: 1.8; }
+        .modal-actions { margin-top: auto; display: flex; gap: 12px; align-items: center; }
 
-        @media (max-width: 768px) {
-            .product-modal { grid-template-columns: 1fr; max-height: 95vh; overflow-y: auto; }
-            .modal-gallery { padding: 1.5rem; }
-            .modal-content-side { padding: 1.5rem; }
-        }
+        /* الأسئلة الشائعة */
+        .faq-section { max-width: 900px; margin: 0 auto 5rem; padding: 0 2rem; }
+        .faq-title { text-align: center; font-size: 1.8rem; font-weight: 400; margin-bottom: 2.5rem; color: var(--text-dark); }
+        .faq-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 15px; }
+        .faq-q { font-weight: 600; font-size: 1.02rem; color: var(--text-dark); margin-bottom: 6px; }
+        .faq-a { font-size: 0.9rem; color: var(--text-muted); font-weight: 300; }
 
-        /* زر واتساب العائم */
+        /* زر واتساب العائم للاستفسارات */
         .whatsapp-floating-btn {
             position: fixed; bottom: 30px; right: 30px; background-color: var(--whatsapp-green); color: #fff;
             border: none; padding: 12px 20px; border-radius: 35px; cursor: pointer; display: flex; align-items: center; gap: 10px;
@@ -213,12 +214,17 @@
         .btn-submit-order:hover { background-color: var(--dark-pink-hover); }
 
         footer { border-top: 1px solid var(--border); padding: 2.5rem; text-align: center; font-size: 0.88rem; color: var(--text-muted); background-color: var(--bg-card); }
+
+        @media(max-width: 768px) {
+            .product-modal { grid-template-columns: 1fr; max-height: 95vh; overflow-y: auto; }
+            .modal-gallery { border-left: none; border-bottom: 1px solid var(--border); }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-container" onclick="location.reload()">
+        <div class="logo-container">
             <div class="logo">LORIGINA</div>
             <div class="logo-tagline">PASTEL & BOLD CHIC</div>
         </div>
@@ -242,20 +248,40 @@
         </div>
     </div>
 
-    <!-- نافذة تفاصيل المنتج -->
+    <!-- نافذة تفاصيل المنتج المنبثقة -->
     <div id="productModalOverlay" class="modal-overlay" onclick="closeProductModal(event)">
         <div class="product-modal" id="productModalBox">
-            <button class="modal-close" onclick="closeProductModalDirect()">×</button>
-            <div class="modal-gallery" id="modalGallery">
-                <!-- معرض الصور -->
+            <button class="modal-close-btn" onclick="closeProductModalDirect()">×</button>
+            <div class="modal-gallery">
+                <img id="modalMainImg" src="" alt="صورة المنتج" class="modal-main-img">
+                <div class="modal-thumbs" id="modalThumbsContainer"></div>
             </div>
-            <div class="modal-content-side" id="modalContent">
-                <!-- تفاصيل المنتج -->
+            <div class="modal-content-side">
+                <h2 id="modalTitle" class="modal-title"></h2>
+                <div id="modalPrice" class="modal-price"></div>
+                <p id="modalDesc" class="modal-desc"></p>
+                <div class="modal-actions">
+                    <input type="number" id="modalQtyInput" class="qty-input" value="1" min="1">
+                    <button id="modalAddBtn" class="btn-add" onclick="addModalProductToCart()">إضافة إلى الحقيبة</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- زر واتساب العائم -->
+    <!-- الأسئلة الشائعة -->
+    <section class="faq-section">
+        <h2 class="faq-title">أسئلة شائعة</h2>
+        <div class="faq-item">
+            <div class="faq-q">كيف يتم تأكيد الطلب؟</div>
+            <div class="faq-a">بعد إدخال معلوماتك في حقيبة المشتريات وتأكيد الطلب، سيتم حفظه مباشرة في نظامنا وسنتواصل معك هاتفياً أو عبر واتساب لتأكيد الشحن.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">هل توجد خدمة توصيل لجميع الولايّات؟</div>
+            <div class="faq-a">نعم، نوفر التوصيل السريع لمختلف ولايات الوطن مع ضمان جودة تغليف الخامات والحرف.</div>
+        </div>
+    </section>
+
+    <!-- زر واتساب العائم للاستفسارات -->
     <a href="https://wa.me/213782871508?text=مرحباً، لدي استفسار بخصوص منتجات متجر Lorigina ✨" target="_blank" class="whatsapp-floating-btn" title="تواصل معنا لأي استفسار">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
         <span>استفسار واتساب</span>
@@ -290,7 +316,9 @@
                 <label>عنوان التوصيل (الولاية والمدينة)</label>
                 <input type="text" id="clientAddress" required>
             </div>
-            <button type="submit" class="btn-submit-order">تأكيد الطلب الآن</button>
+            <button type="submit" class="btn-submit-order">
+                تأكيد الطلب الآن
+            </button>
         </form>
     </div>
 
@@ -301,6 +329,7 @@
     <script>
         let products = [];
         let cart = [];
+        let currentModalProduct = null;
         
         const productsApiURL = "https://script.google.com/macros/s/AKfycbxCfkKY4ZkITQ1zvsziKUBoVar9FUTkGol8aYLASPcq6I2y3_oO7Z78JuY6RikhSei-/exec";
         const controlApiURL = "https://script.google.com/macros/s/AKfycbwAqENb9AdD1N-Md3BQX8hnrfZ13mckcaZdLZFVksedgndvdYTLVEJ3rxD60fUUbkurug/exec";
@@ -331,15 +360,15 @@
                 const stock = product.stock !== undefined && product.stock !== "" ? Number(product.stock) : 999;
                 const isOutOfStock = stock <= 0;
 
-                // معالجة الصور (يمكن وضع رابط واحد أو عدة روابط مفصولة بـ فاصلة ,)
-                let imagesList = product.image ? product.image.split(',').map(img => img.trim()).filter(img => img) : [];
-                let mainImage = imagesList.length > 0 ? imagesList[0] : 'https://via.placeholder.com/300?text=No+Image';
+                // معالجة الصور المتعددة (فصل الروابط بـ ,)
+                let imagesArray = product.image ? product.image.split(',').map(img => img.trim()).filter(img => img !== "") : [];
+                let firstImg = imagesArray.length > 0 ? imagesArray[0] : '';
 
                 grid.innerHTML += `
                     <div class="product-card" onclick="openProductModal('${product.id}')">
-                        <div class="product-img-wrapper">
+                        <div class="product-img-container">
                             <span class="stock-badge">${isOutOfStock ? 'نفدت الكمية' : 'المتوفر: ' + stock}</span>
-                            <img src="${mainImage}" alt="${product.name}" loading="lazy">
+                            <img src="${firstImg}" alt="${product.name}" loading="lazy">
                         </div>
                         <div class="product-info">
                             <h3 class="product-title">${product.name}</h3>
@@ -359,48 +388,55 @@
             });
         }
 
-        // فتح صفحة عرض المنتج (Modal)
+        // فتح نافذة تفاصيل المنتج
         function openProductModal(id) {
             const product = products.find(p => p.id == id);
             if(!product) return;
+            currentModalProduct = product;
 
+            document.getElementById('modalTitle').innerText = product.name;
+            document.getElementById('modalPrice').innerText = product.price + ' DA';
+            document.getElementById('modalDesc').innerText = product.desc || 'لا توجد تفاصيل إضافية لهذا المنتج.';
+            
             const stock = product.stock !== undefined && product.stock !== "" ? Number(product.stock) : 999;
             const isOutOfStock = stock <= 0;
+            
+            const qtyInput = document.getElementById('modalQtyInput');
+            qtyInput.max = stock;
+            qtyInput.value = 1;
 
-            let imagesList = product.image ? product.image.split(',').map(img => img.trim()).filter(img => img) : ['https://via.placeholder.com/300?text=No+Image'];
+            const addBtn = document.getElementById('modalAddBtn');
+            addBtn.disabled = isOutOfStock;
+            addBtn.innerText = isOutOfStock ? 'غير متوفر' : 'إضافة إلى الحقيبة';
 
-            // بناء معرض الصور داخل النافذة
-            let galleryHTML = `
-                <img src="${imagesList[0]}" id="modalActiveImg" class="modal-main-img" alt="${product.name}">
-            `;
+            // معالجة معرض الصور المتعددة في النافذة
+            let imagesArray = product.image ? product.image.split(',').map(img => img.trim()).filter(img => img !== "") : [];
+            const mainImgElement = document.getElementById('modalMainImg');
+            const thumbsContainer = document.getElementById('modalThumbsContainer');
+            thumbsContainer.innerHTML = '';
 
-            if(imagesList.length > 1) {
-                galleryHTML += `<div class="modal-thumbs">`;
-                imagesList.forEach((img, idx) => {
-                    galleryHTML += `<img src="${img}" class="modal-thumb ${idx === 0 ? 'active' : ''}" onclick="changeModalImage(this, '${img}')">`;
-                });
-                galleryHTML += `</div>`;
+            if(imagesArray.length > 0) {
+                mainImgElement.src = imagesArray[0];
+                if(imagesArray.length > 1) {
+                    thumbsContainer.style.display = 'flex';
+                    imagesArray.forEach((imgUrl, idx) => {
+                        thumbsContainer.innerHTML += `
+                            <img src="${imgUrl}" class="modal-thumb ${idx === 0 ? 'active' : ''}" onclick="changeModalImage('${imgUrl}', this)">
+                        `;
+                    });
+                } else {
+                    thumbsContainer.style.display = 'none';
+                }
+            } else {
+                mainImgElement.src = '';
+                thumbsContainer.style.display = 'none';
             }
-
-            document.getElementById('modalGallery').innerHTML = galleryHTML;
-
-            // بناء محتوى تفاصيل المنتج
-            document.getElementById('modalContent').innerHTML = `
-                <h2 class="modal-title">${product.name}</h2>
-                <div class="modal-price">${product.price} DA</div>
-                <p class="modal-desc">${product.desc}</p>
-                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">الكمية المتوفرة في المخزون: <strong>${isOutOfStock ? 'نفدت الكمية' : stock}</strong></div>
-                <div class="modal-actions">
-                    <input type="number" id="modal-qty-${product.id}" class="qty-input" value="1" min="1" max="${stock}" ${isOutOfStock ? 'disabled' : ''}>
-                    <button class="btn-add" onclick="addToCartFromModal('${product.id}')" ${isOutOfStock ? 'disabled' : ''}>${isOutOfStock ? 'غير متوفر' : 'إضافة إلى الحقيبة'}</button>
-                </div>
-            `;
 
             document.getElementById('productModalOverlay').classList.add('active');
         }
 
-        function changeModalImage(thumbElement, src) {
-            document.getElementById('modalActiveImg').src = src;
+        function changeModalImage(url, thumbElement) {
+            document.getElementById('modalMainImg').src = url;
             document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active'));
             thumbElement.classList.add('active');
         }
@@ -413,6 +449,22 @@
 
         function closeProductModalDirect() {
             document.getElementById('productModalOverlay').classList.remove('active');
+        }
+
+        function addModalProductToCart() {
+            if(!currentModalProduct) return;
+            const qty = parseInt(document.getElementById('modalQtyInput').value) || 1;
+            const existingItem = cart.find(item => item.id == currentModalProduct.id);
+            
+            if(existingItem) {
+                existingItem.quantity += qty;
+            } else {
+                cart.push({ ...currentModalProduct, quantity: qty });
+            }
+            
+            updateCartUI();
+            closeProductModalDirect();
+            toggleCartDrawer();
         }
 
         function addToCart(id) {
@@ -428,24 +480,6 @@
                     cart.push({ ...product, quantity: selectedQty });
                 }
                 updateCartUI();
-                toggleCartDrawer();
-            }
-        }
-
-        function addToCartFromModal(id) {
-            const product = products.find(p => p.id == id);
-            const qtyInput = document.getElementById(`modal-qty-${id}`);
-            const selectedQty = parseInt(qtyInput.value) || 1;
-
-            if(product) {
-                const existingItem = cart.find(item => item.id == id);
-                if(existingItem) {
-                    existingItem.quantity += selectedQty;
-                } else {
-                    cart.push({ ...product, quantity: selectedQty });
-                }
-                updateCartUI();
-                closeProductModalDirect();
                 toggleCartDrawer();
             }
         }
@@ -534,7 +568,7 @@
             cartItemsContainer.innerHTML = `
                 <div style="text-align: center; padding: 2.5rem 1rem;">
                     <div style="font-size: 2.5rem; color: var(--dark-pink); margin-bottom: 10px;">✨</div>
-                    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var::text-dark;">تم تأكيد طلبك بنجاح!</h3>
+                    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--text-dark);">تم تأكيد طلبك بنجاح!</h3>
                     <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">شكراً لاختيارك LORIGINA. تم تسجيل طلبك في لوحة التحكم، وسنتصل بك قريباً للتأكيد والشحن.</p>
                     <a href="https://wa.me/213782871508?text=مرحباً، لقد أكدت طلبي للتو واسمي ${encodeURIComponent(name)} وأود الاستفسار عن..." target="_blank" style="display: inline-block; background-color: var(--whatsapp-green); color: #fff; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-size: 0.9rem; font-weight: 600;">التواصل عبر واتساب للاستفسار</a>
                 </div>
