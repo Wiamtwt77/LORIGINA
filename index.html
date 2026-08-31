@@ -3,605 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LORIGINA — مواد لصنع أفكارك</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>لوحة التحكم العصرية والمرنة</title>
+    <!-- استدعاء مكتبة Tailwind CSS للتصميم السريع والعصري -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            900: '#0369a1',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --bg-main: #FAFAFB;          /* أبيض ثلجي هادئ */
-            --bg-card: #FFFFFF;          /* أبيض ناصع للبطاقات */
-            --pastel-pink: #F4D6E2;      /* وردي باستيل مميز */
-            --pastel-pink-light: #FAF0F4;/* وردي باستيل فاتح جداً للخلفيات الداخلية */
-            --deep-dark: #1E1E1E;        /* الأسود الداكن الأنيق للنصوص والعناصر البارزة */
-            --accent-pink: #8F2D4E;      /* وردي داكن للتأكيد */
-            --border-color: #D8C2CE;     /* حدود واضحة ومحددة بدقة */
-            --border-dark: #1E1E1E;      /* حدود سوداء داكنة للأزرار والعناصر البارزة */
-            --whatsapp-green: #25D366;
-            --whatsapp-hover: #1EBE5D;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
         body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: var(--bg-main);
-            color: var(--deep-dark);
-            line-height: 1.7;
+            font-family: 'Cairo', sans-serif;
         }
-
-        header {
-            background-color: var(--bg-card);
-            padding: 1.2rem 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--border-dark);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo-container { display: flex; flex-direction: column; }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--deep-dark); letter-spacing: 3px; text-transform: uppercase; }
-        .logo-tagline { font-size: 0.7rem; color: var(--accent-pink); letter-spacing: 1.5px; font-weight: 700; text-transform: uppercase; margin-top: -2px; }
-
-        .nav-actions { display: flex; align-items: center; gap: 20px; }
-
-        .cart-trigger {
-            background: var(--pastel-pink);
-            border: 2px solid var(--border-dark);
-            padding: 8px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--deep-dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-            box-shadow: 2px 2px 0px var(--border-dark);
-        }
-        .cart-trigger:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0px var(--border-dark); }
-
-        .cart-badge { background-color: var(--deep-dark); color: #fff; font-size: 0.75rem; padding: 2px 8px; border-radius: 50%; font-weight: 700; }
-
-        .hero { 
-            padding: 5rem 2rem 4rem; 
-            text-align: center; 
-            max-width: 850px; 
-            margin: 0 auto; 
-            background: linear-gradient(180deg, var(--pastel-pink-light) 0%, var(--bg-main) 100%); 
-            border-bottom: 2px solid var(--border-color); 
-        }
-        .hero h1 { font-size: 2.5rem; font-weight: 400; color: var(--deep-dark); margin-bottom: 1rem; }
-        .hero h1 span { font-weight: 700; color: var(--accent-pink); background: var(--pastel-pink); padding: 0 8px; border-radius: 4px; border: 1.5px solid var(--border-dark); }
-        .hero p { font-size: 1.05rem; color: #555; font-weight: 400; }
-
-        .container { max-width: 1300px; margin: 4rem auto; padding: 0 2rem; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-
-        .product-card {
-            background: var(--bg-card);
-            border: 2px solid var(--border-dark);
-            border-radius: 8px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            cursor: pointer;
-            box-shadow: 4px 4px 0px var(--border-dark);
-        }
-        .product-card:hover { transform: translateY(-3px); box-shadow: 6px 6px 0px var(--border-dark); }
-
-        .product-img-container {
-            height: 220px;
-            width: 100%;
-            background-color: var(--pastel-pink-light);
-            position: relative;
-            border-bottom: 2px solid var(--border-dark);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .product-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .stock-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: var(--deep-dark);
-            color: #fff;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            z-index: 2;
-            border: 1px solid var(--pastel-pink);
-        }
-
-        .product-info { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
-        .product-title { font-size: 1.1rem; font-weight: 700; color: var(--deep-dark); margin-bottom: 6px; }
-        .product-desc { font-size: 0.88rem; color: #666; margin-bottom: 1.5rem; flex-grow: 1; font-weight: 400; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-        .product-footer { display: flex; flex-direction: column; gap: 12px; border-top: 1.5px solid var(--border-color); padding-top: 1rem; margin-top: auto; }
-        .product-price { font-size: 1.15rem; font-weight: 700; color: var(--accent-pink); }
-        .actions-row { display: flex; gap: 10px; align-items: center; }
-
-        .qty-input {
-            width: 65px; padding: 8px; border: 2px solid var(--border-dark); border-radius: 6px;
-            font-family: 'Tajawal', sans-serif; font-size: 0.9rem; text-align: center; background: var(--pastel-pink-light); color: var(--deep-dark); font-weight: 700; outline: none;
-        }
-
-        .btn-add {
-            flex-grow: 1; 
-            background-color: var(--deep-dark); 
-            color: #FFFFFF; 
-            border: 2px solid var(--border-dark); 
-            padding: 9px 16px;
-            border-radius: 6px; 
-            cursor: pointer; 
-            font-family: 'Tajawal', sans-serif; 
-            font-size: 0.9rem; 
-            font-weight: 700; 
-            transition: background-color 0.2s, transform 0.1s;
-            box-shadow: 2px 2px 0px var(--pastel-pink);
-        }
-        .btn-add:hover { background-color: var(--accent-pink); color: #fff; }
-        .btn-add:disabled { background-color: #ddd; color: #888; border-color: #ccc; box-shadow: none; cursor: not-allowed; }
-
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(30, 30, 30, 0.6); backdrop-filter: blur(4px); z-index: 1100;
-            opacity: 0; visibility: hidden; transition: all 0.3s ease;
-            display: flex; align-items: center; justify-content: center; padding: 1rem;
-        }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
-
-        .product-modal {
-            background: var(--bg-card); width: 100%; max-width: 850px; border-radius: 10px;
-            box-shadow: 8px 8px 0px var(--border-dark); overflow: hidden; display: grid; grid-template-columns: 1fr 1fr;
-            transform: translateY(20px); transition: transform 0.3s ease; position: relative; max-height: 90vh; border: 3px solid var(--border-dark);
-        }
-        .modal-overlay.active .product-modal { transform: translateY(0); }
-
-        .modal-gallery { padding: 1.5rem; background: var(--pastel-pink-light); display: flex; flex-direction: column; gap: 12px; align-items: center; justify-content: center; border-left: 2px solid var(--border-dark); }
-        .modal-main-img { width: 100%; height: 280px; object-fit: cover; border-radius: 6px; border: 2px solid var(--border-dark); background: #fff; }
-        .modal-thumbs { display: flex; gap: 8px; overflow-x: auto; width: 100%; padding-bottom: 5px; }
-        .modal-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 2px solid var(--border-dark); cursor: pointer; transition: border-color 0.2s; }
-        .modal-thumb.active { border-color: var(--accent-pink); transform: scale(1.05); }
-
-        .modal-content-side { padding: 2rem; display: flex; flex-direction: column; overflow-y: auto; }
-        .modal-close-btn { position: absolute; top: 15px; left: 15px; background: var(--pastel-pink); border: 2px solid var(--border-dark); width: 35px; height: 35px; border-radius: 50%; font-size: 1.2rem; font-weight: 700; cursor: pointer; color: var(--deep-dark); display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.2s; }
-        .modal-close-btn:hover { background: var(--accent-pink); color: #fff; }
-        
-        .modal-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 10px; color: var(--deep-dark); }
-        .modal-price { font-size: 1.25rem; font-weight: 700; color: var(--accent-pink); margin-bottom: 15px; }
-        .modal-desc { font-size: 0.95rem; color: #555; margin-bottom: 2rem; font-weight: 400; line-height: 1.8; }
-        .modal-actions { margin-top: auto; display: flex; gap: 12px; align-items: center; }
-
-        .faq-section { max-width: 900px; margin: 0 auto 5rem; padding: 0 2rem; }
-        .faq-title { text-align: center; font-size: 1.8rem; font-weight: 700; margin-bottom: 2.5rem; color: var(--deep-dark); }
-        .faq-item { background: var(--bg-card); border: 2px solid var(--border-dark); border-radius: 8px; padding: 1.2rem 1.5rem; margin-bottom: 15px; box-shadow: 3px 3px 0px var(--pastel-pink); }
-        .faq-q { font-weight: 700; font-size: 1.05rem; color: var(--deep-dark); margin-bottom: 6px; }
-        .faq-a { font-size: 0.9rem; color: #555; font-weight: 400; }
-
-        .whatsapp-floating-btn {
-            position: fixed; bottom: 30px; right: 30px; background-color: var(--whatsapp-green); color: #fff;
-            border: 2px solid var(--border-dark); padding: 12px 22px; border-radius: 35px; cursor: pointer; display: flex; align-items: center; gap: 10px;
-            font-family: 'Tajawal', sans-serif; font-size: 0.95rem; font-weight: 700; box-shadow: 4px 4px 0px var(--border-dark);
-            z-index: 999; text-decoration: none; animation: floatBtn 3s ease-in-out infinite; transition: all 0.2s;
-        }
-        @keyframes floatBtn { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        .whatsapp-floating-btn:hover { background-color: var(--whatsapp-hover); transform: scale(1.05); color: #fff; }
-
-        .cart-drawer-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(30, 30, 30, 0.4); backdrop-filter: blur(2px); z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease;
-        }
-        .cart-drawer-overlay.active { opacity: 1; visibility: visible; }
-        
-        .cart-drawer {
-            position: fixed; top: 0; left: -420px; width: 100%; max-width: 400px; height: 100%;
-            background: var(--bg-card); z-index: 1001; box-shadow: -5px 0 25px rgba(0,0,0,0.15);
-            transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; padding: 2rem; border-right: 3px solid var(--border-dark);
-        }
-        .cart-drawer.active { left: 0; }
-
-        .cart-items-container { flex-grow: 1; overflow-y: auto; margin-bottom: 1.5rem; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
-
-        .checkout-form .form-group { margin-bottom: 12px; }
-        .checkout-form label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 5px; color: var(--deep-dark); }
-        .checkout-form input {
-            width: 100%; padding: 10px 12px; border: 2px solid var(--border-dark); border-radius: 6px;
-            font-family: 'Tajawal', sans-serif; font-size: 0.9rem; background-color: var(--pastel-pink-light); color: var(--deep-dark); font-weight: 500; outline: none;
-        }
-        .checkout-form input:focus { border-color: var(--accent-pink); background: #fff; }
-
-        .btn-submit-order {
-            width: 100%; background-color: var(--accent-pink); color: #fff; border: 2px solid var(--border-dark); padding: 12px;
-            border-radius: 6px; font-family: 'Tajawal', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer;
-            margin-top: 10px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
-            box-shadow: 3px 3px 0px var(--border-dark);
-        }
-        .btn-submit-order:hover { background-color: var(--deep-dark); color: #fff; }
-
-        footer { border-top: 2px solid var(--border-dark); padding: 2.5rem; text-align: center; font-size: 0.88rem; color: #555; background-color: var(--bg-card); font-weight: 500; }
-
-        @media(max-width: 768px) {
-            .product-modal { grid-template-columns: 1fr; max-height: 95vh; overflow-y: auto; }
-            .modal-gallery { border-left: none; border-bottom: 2px solid var(--border-dark); }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
 
-    <header>
-        <div class="logo-container">
-            <div class="logo">LORIGINA</div>
-            <div class="logo-tagline">PASTEL & BOLD CHIC</div>
+    <!-- شريط التنقل العلوي العصري -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-900/80 border-b border-slate-800 px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center space-x-4 space-x-reverse">
+            <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-brand-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-brand-500/30">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+            </div>
+            <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">منظومة المستقبل</span>
         </div>
-        <div class="nav-actions">
-            <button class="cart-trigger" onclick="toggleCartDrawer()">
-                <span>حقيبة المشتريات</span>
-                <span id="cartCount" class="cart-badge">0</span>
-            </button>
+        <div class="flex items-center space-x-3 space-x-reverse">
+            <button class="px-4 py-2 text-sm font-medium bg-slate-800 hover:bg-slate-700 rounded-lg transition-all duration-200 border border-slate-700">الإشعارات</button>
+            <div class="h-9 w-9 rounded-full bg-gradient-to-r from-brand-500 to-purple-600 flex items-center justify-center font-bold text-sm shadow">م</div>
         </div>
     </header>
 
-    <section class="hero">
-        <h1>خامات أنيقة <span>لتلهم أفكارك الإبداعية</span></h1>
-        <p>تشكيلة راقية من المواد الأولية واللوازم الحرفية بتصميم عصري يجمع النعومة والاحترافية.</p>
-    </section>
-
-    <div class="container">
-        <div id="productsGrid" class="products-grid">
-            <p style="text-align: center; color: var(--deep-dark); grid-column: 1/-1; padding: 3rem 0; font-weight: 700;">جاري تحميل المواد الحرفية...</p>
-        </div>
-    </div>
-
-    <!-- نافذة تفاصيل المنتج المنبثقة -->
-    <div id="productModalOverlay" class="modal-overlay" onclick="closeProductModal(event)">
-        <div class="product-modal" id="productModalBox">
-            <button class="modal-close-btn" onclick="closeProductModalDirect()">×</button>
-            <div class="modal-gallery">
-                <img id="modalMainImg" src="" alt="صورة المنتج" class="modal-main-img" onerror="this.onerror=null; this.src='https://placehold.co/400x300/FAF0F4/1E1E1E?text=LORIGINA';">
-                <div class="modal-thumbs" id="modalThumbsContainer"></div>
-            </div>
-            <div class="modal-content-side">
-                <h2 id="modalTitle" class="modal-title"></h2>
-                <div id="modalPrice" class="modal-price"></div>
-                <p id="modalDesc" class="modal-desc"></p>
-                <div class="modal-actions">
-                    <input type="number" id="modalQtyInput" class="qty-input" value="1" min="1">
-                    <button id="modalAddBtn" class="btn-add" onclick="addModalProductToCart()">إضافة إلى الحقيبة</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <section class="faq-section">
-        <h2 class="faq-title">أسئلة شائعة</h2>
-        <div class="faq-item">
-            <div class="faq-q">كيف يتم تأكيد الطلب؟</div>
-            <div class="faq-a">بعد إدخال معلوماتك في حقيبة المشتريات وتأكيد الطلب، سيتم حفظه مباشرة في نظامنا وسنتواصل معك هاتفياً أو عبر واتساب لتأكيد الشحن.</div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-q">هل توجد خدمة توصيل لجميع الولايّات؟</div>
-            <div class="faq-a">نعم، نوفر التوصيل السريع لمختلف ولايات الوطن مع ضمان جودة تغليف الخامات والحرف.</div>
-        </div>
-    </section>
-
-    <a href="https://wa.me/213782871508?text=مرحباً، لدي استفسار بخصوص منتجات متجر Lorigina ✨" target="_blank" class="whatsapp-floating-btn" title="تواصل معنا لأي استفسار">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-        <span>استفسار واتساب</span>
-    </a>
-
-    <div id="cartOverlay" class="cart-drawer-overlay" onclick="toggleCartDrawer()"></div>
-    <div id="cartDrawer" class="cart-drawer">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-dark); padding-bottom: 1rem; margin-bottom: 1.5rem;">
-            <h3 style="font-weight: 700; color: var(--deep-dark);">حقيبة المشتريات</h3>
-            <button onclick="toggleCartDrawer()" style="background:var(--pastel-pink); border:2px solid var(--border-dark); width:30px; height:30px; border-radius:50%; font-size:1.1rem; font-weight:700; cursor:pointer; color:var(--deep-dark); display:flex; align-items:center; justify-content:center;">×</button>
-        </div>
+    <!-- المحتوى الرئيسي المرن -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <div id="cartItemsList" class="cart-items-container">
-            <p style="color: #666; text-align: center; margin-top: 2rem;">الحقيبة فارغة حالياً</p>
+        <!-- بطاقة إحصائية عصرية 1 -->
+        <div class="glass-card bg-slate-800/50 p-6 rounded-2xl shadow-xl border border-slate-700/50 hover:border-brand-500/50 transition-all duration-300 group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="text-sm font-medium text-slate-400">إجمالي الأرباح</p>
+                    <h3 class="text-3xl font-bold mt-2 text-white group-hover:text-brand-400 transition-colors">$45,280</h3>
+                </div>
+                <span class="p-3 bg-brand-500/10 text-brand-400 rounded-xl">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </span>
+            </div>
+            <div class="mt-4 flex items-center text-emerald-400 text-sm font-semibold">
+                <span>+12.5%</span>
+                <span class="text-slate-400 mr-2 font-normal">منذ الشهر الماضي</span>
+            </div>
         </div>
 
-        <div id="cartTotalContainer" style="font-weight: 700; margin-bottom: 1rem; text-align: left; font-size: 1.1rem; display: none; color: var(--accent-pink); border-top: 1.5px dashed var(--border-dark); padding-top: 10px;">
-            المجموع الكلي: <span id="cartTotalPrice">0</span> DA
+        <!-- بطاقة إحصائية عصرية 2 -->
+        <div class="glass-card bg-slate-800/50 p-6 rounded-2xl shadow-xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300 group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="text-sm font-medium text-slate-400">المستخدمين النشطين</p>
+                    <h3 class="text-3xl font-bold mt-2 text-white group-hover:text-indigo-400 transition-colors">1,482</h3>
+                </div>
+                <span class="p-3 bg-indigo-500/10 text-indigo-400 rounded-xl">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                </span>
+            </div>
+            <div class="mt-4 flex items-center text-emerald-400 text-sm font-semibold">
+                <span>+8.2%</span>
+                <span class="text-slate-400 mr-2 font-normal">نمو أسبوعي</span>
+            </div>
         </div>
 
-        <form id="checkoutForm" class="checkout-form" onsubmit="submitOrder(event)">
-            <div class="form-group">
-                <label>الاسم الكامل</label>
-                <input type="text" id="clientName" required>
+        <!-- بطاقة إحصائية عصرية 3 -->
+        <div class="glass-card bg-slate-800/50 p-6 rounded-2xl shadow-xl border border-slate-700/50 hover:border-purple-500/50 transition-all duration-300 group">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="text-sm font-medium text-slate-400">معدل التحويل</p>
+                    <h3 class="text-3xl font-bold mt-2 text-white group-hover:text-purple-400 transition-colors">8.4%</h3>
+                </div>
+                <span class="p-3 bg-purple-500/10 text-purple-400 rounded-xl">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                </span>
             </div>
-            <div class="form-group">
-                <label>رقم الهاتف</label>
-                <input type="tel" id="clientPhone" required>
+            <div class="mt-4 flex items-center text-rose-400 text-sm font-semibold">
+                <span>-1.1%</span>
+                <span class="text-slate-400 mr-2 font-normal">مقارنة بالأمس</span>
             </div>
-            <div class="form-group">
-                <label>عنوان التوصيل (الولاية والمدينة)</label>
-                <input type="text" id="clientAddress" required>
-            </div>
-            <button type="submit" class="btn-submit-order">تأكيد الطلب الآن</button>
-        </form>
-    </div>
+        </div>
 
-    <footer>
-        <p>© 2026 Lorigina Studio. كافة الحقوق محفوظة لمشاريع الحرف اليدوية.</p>
+        <!-- قسم العمليات / الجدول المرن -->
+        <div class="md:col-span-3 bg-slate-800/40 border border-slate-700/60 rounded-2xl p-6 shadow-xl backdrop-blur-md">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+                <h2 class="text-lg font-bold text-white">العمليات الأخيرة</h2>
+                <button class="px-5 py-2.5 bg-gradient-to-r from-brand-500 to-indigo-600 text-white font-medium rounded-xl shadow-lg shadow-brand-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
+                    + إضافة عملية جديدة
+                </button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-right text-sm text-slate-300">
+                    <thead class="text-xs uppercase bg-slate-900/60 text-slate-400 border-b border-slate-700">
+                        <tr>
+                            <th scope="col" class="px-6 py-4 rounded-r-xl">العميل</th>
+                            <th scope="col" class="px-6 py-4">الحالة</th>
+                            <th scope="col" class="px-6 py-4">المبلغ</th>
+                            <th scope="col" class="px-6 py-4 rounded-l-xl">التاريخ</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-700/40">
+                        <tr class="hover:bg-slate-700/20 transition-colors">
+                            <td class="px-6 py-4 font-medium text-white flex items-center space-x-3 space-x-reverse">
+                                <div class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold">أ</div>
+                                <span>أحمد محمد</span>
+                            </td>
+                            <td class="px-6 py-4"><span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-semibold">مكتمل</span></td>
+                            <td class="px-6 py-4 font-semibold text-white">$1,200.00</td>
+                            <td class="px-6 py-4 text-slate-400">2026-06-06</td>
+                        </tr>
+                        <tr class="hover:bg-slate-700/20 transition-colors">
+                            <td class="px-6 py-4 font-medium text-white flex items-center space-x-3 space-x-reverse">
+                                <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">س</div>
+                                <span>سارة خالد</span>
+                            </td>
+                            <td class="px-6 py-4"><span class="px-3 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full text-xs font-semibold">قيد المعالجة</span></td>
+                            <td class="px-6 py-4 font-semibold text-white">$850.50</td>
+                            <td class="px-6 py-4 text-slate-400">2026-06-05</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- التذييل -->
+    <footer class="text-center py-6 text-slate-500 text-xs border-t border-slate-800/80 mt-auto">
+        جميع الحقوق محفوظة &copy; 2026 - تصميم عصري ومرن
     </footer>
 
-    <script>
-        let products = [];
-        let cart = [];
-        let currentModalProduct = null;
-        
-        const productsApiURL = "https://script.google.com/macros/s/AKfycbxCfkKY4ZkITQ1zvsziKUBoVar9FUTkGol8aYLASPcq6I2y3_oO7Z78JuY6RikhSei-/exec";
-        const controlApiURL = "https://script.google.com/macros/s/AKfycbwAqENb9AdD1N-Md3BQX8hnrfZ13mckcaZdLZFVksedgndvdYTLVEJ3rxD60fUUbkurug/exec";
-
-        function formatImageUrl(url) {
-            if (!url) return '';
-            url = url.trim();
-            let match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
-            if (match && match[1]) {
-                return `https://lh3.googleusercontent.com/d/${match[1]}`;
-            }
-            return url;
-        }
-
-        const placeholderImg = "https://placehold.co/400x300/FAF0F4/1E1E1E?text=LORIGINA";
-
-        function fetchProducts() {
-            fetch(productsApiURL)
-                .then(res => res.json())
-                .then(data => {
-                    products = data;
-                    renderProducts();
-                })
-                .catch(err => {
-                    console.error("خطأ في جلب المنتجات:", err);
-                    document.getElementById('productsGrid').innerHTML = '<p style="text-align: center; color: var(--deep-dark); grid-column: 1/-1; font-weight: 700;">تعذر تحميل المنتجات حالياً.</p>';
-                });
-        }
-
-        function renderProducts() {
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = '';
-            
-            if(products.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; color: #666; grid-column: 1/-1;">لا توجد منتجات متاحة حالياً</p>';
-                return;
-            }
-
-            products.forEach(product => {
-                const stock = product.stock !== undefined && product.stock !== "" ? Number(product.stock) : 999;
-                const isOutOfStock = stock <= 0;
-
-                let imagesArray = product.image ? product.image.split(',').map(img => formatImageUrl(img)).filter(img => img !== "") : [];
-                let firstImg = imagesArray.length > 0 ? imagesArray[0] : placeholderImg;
-
-                grid.innerHTML += `
-                    <div class="product-card" onclick="openProductModal('${product.id}')">
-                        <div class="product-img-container">
-                            <span class="stock-badge">${isOutOfStock ? 'نفدت الكمية' : 'المتوفر: ' + stock}</span>
-                            <img src="${firstImg}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='${placeholderImg}';">
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-title">${product.name}</h3>
-                            <p class="product-desc">${product.desc}</p>
-                            <div class="product-footer" onclick="event.stopPropagation()">
-                                <div class="price-row">
-                                    <span class="product-price">${product.price} DA</span>
-                                </div>
-                                <div class="actions-row">
-                                    <input type="number" id="qty-${product.id}" class="qty-input" value="1" min="1" max="${stock}" ${isOutOfStock ? 'disabled' : ''}>
-                                    <button class="btn-add" onclick="addToCart('${product.id}')" ${isOutOfStock ? 'disabled' : ''}>${isOutOfStock ? 'غير متوفر' : 'إضافة'}</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function openProductModal(id) {
-            const product = products.find(p => p.id == id);
-            if(!product) return;
-            currentModalProduct = product;
-
-            document.getElementById('modalTitle').innerText = product.name;
-            document.getElementById('modalPrice').innerText = product.price + ' DA';
-            document.getElementById('modalDesc').innerText = product.desc || 'لا توجد تفاصيل إضافية لهذا المنتج.';
-            
-            const stock = product.stock !== undefined && product.stock !== "" ? Number(product.stock) : 999;
-            const isOutOfStock = stock <= 0;
-            
-            const qtyInput = document.getElementById('modalQtyInput');
-            qtyInput.max = stock;
-            qtyInput.value = 1;
-
-            const addBtn = document.getElementById('modalAddBtn');
-            addBtn.disabled = isOutOfStock;
-            addBtn.innerText = isOutOfStock ? 'غير متوفر' : 'إضافة إلى الحقيبة';
-
-            let imagesArray = product.image ? product.image.split(',').map(img => formatImageUrl(img)).filter(img => img !== "") : [];
-            const mainImgElement = document.getElementById('modalMainImg');
-            const thumbsContainer = document.getElementById('modalThumbsContainer');
-            thumbsContainer.innerHTML = '';
-
-            if(imagesArray.length > 0) {
-                mainImgElement.src = imagesArray[0];
-                if(imagesArray.length > 1) {
-                    thumbsContainer.style.display = 'flex';
-                    imagesArray.forEach((imgUrl, idx) => {
-                        thumbsContainer.innerHTML += `
-                            <img src="${imgUrl}" class="modal-thumb ${idx === 0 ? 'active' : ''}" onclick="changeModalImage('${imgUrl}', this)" onerror="this.onerror=null; this.src='${placeholderImg}';">
-                        `;
-                    });
-                } else {
-                    thumbsContainer.style.display = 'none';
-                }
-            } else {
-                mainImgElement.src = placeholderImg;
-                thumbsContainer.style.display = 'none';
-            }
-
-            document.getElementById('productModalOverlay').classList.add('active');
-        }
-
-        function changeModalImage(url, thumbElement) {
-            document.getElementById('modalMainImg').src = url;
-            document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active'));
-            thumbElement.classList.add('active');
-        }
-
-        function closeProductModal(e) {
-            if(e.target.id === 'productModalOverlay') {
-                document.getElementById('productModalOverlay').classList.remove('active');
-            }
-        }
-
-        function closeProductModalDirect() {
-            document.getElementById('productModalOverlay').classList.remove('active');
-        }
-
-        function addModalProductToCart() {
-            if(!currentModalProduct) return;
-            const qty = parseInt(document.getElementById('modalQtyInput').value) || 1;
-            const existingItem = cart.find(item => item.id == currentModalProduct.id);
-            
-            if(existingItem) {
-                existingItem.quantity += qty;
-            } else {
-                cart.push({ ...currentModalProduct, quantity: qty });
-            }
-            
-            updateCartUI();
-            closeProductModalDirect();
-            toggleCartDrawer();
-        }
-
-        function addToCart(id) {
-            const product = products.find(p => p.id == id);
-            const qtyInput = document.getElementById(`qty-${id}`);
-            const selectedQty = parseInt(qtyInput.value) || 1;
-
-            if(product) {
-                const existingItem = cart.find(item => item.id == id);
-                if(existingItem) {
-                    existingItem.quantity += selectedQty;
-                } else {
-                    cart.push({ ...product, quantity: selectedQty });
-                }
-                updateCartUI();
-                toggleCartDrawer();
-            }
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').innerText = totalCount;
-            
-            const list = document.getElementById('cartItemsList');
-            const totalContainer = document.getElementById('cartTotalContainer');
-            const checkoutForm = document.getElementById('checkoutForm');
-            
-            if(cart.length === 0) {
-                list.innerHTML = '<p style="color: #666; text-align: center; margin-top: 2rem;">الحقيبة فارغة حالياً</p>';
-                totalContainer.style.display = 'none';
-                checkoutForm.style.display = 'none';
-                return;
-            }
-
-            totalContainer.style.display = 'block';
-            checkoutForm.style.display = 'block';
-            let grandTotal = 0;
-
-            list.innerHTML = cart.map((item, index) => {
-                let itemTotal = Number(item.price) * item.quantity;
-                grandTotal += itemTotal;
-                return `
-                    <div class="cart-item">
-                        <div>
-                            <div style="font-weight: 700; color: var(--deep-dark);">${item.name}</div>
-                            <div style="color: #666; font-size: 0.85rem;">الكمية: ${item.quantity} × ${item.price} DA</div>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <span style="font-weight: 700; font-size: 0.9rem; color: var(--accent-pink);">${itemTotal} DA</span>
-                            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--accent-pink); cursor:pointer; font-size:0.85rem; font-family:'Tajawal', sans-serif; font-weight:700;">حذف</button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            document.getElementById('cartTotalPrice').innerText = grandTotal;
-        }
-
-        function toggleCartDrawer() {
-            document.getElementById('cartDrawer').classList.toggle('active');
-            document.getElementById('cartOverlay').classList.toggle('active');
-        }
-
-        function submitOrder(e) {
-            e.preventDefault();
-            if(cart.length === 0) {
-                alert('الحقيبة فارغة.');
-                return;
-            }
-
-            const name = document.getElementById('clientName').value;
-            const phone = document.getElementById('clientPhone').value;
-            const address = document.getElementById('clientAddress').value;
-            
-            let grandTotal = cart.reduce((sum, item) => sum + (Number(item.price) * item.quantity), 0);
-            let itemsNamesStr = cart.map(item => `${item.name} (${item.quantity})`).join(', ');
-
-            fetch(controlApiURL, {
-                content: "no-cors",
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    name: name,
-                    phone: phone,
-                    commande: itemsNamesStr,
-                    adresse: address,
-                    total: grandTotal
-                })
-            }).catch(err => console.log("Order logged", err));
-
-            const cartItemsContainer = document.getElementById('cartItemsList');
-            document.getElementById('cartTotalContainer').style.display = 'none';
-            document.getElementById('checkoutForm').style.display = 'none';
-            document.getElementById('cartCount').innerText = '0';
-
-            cartItemsContainer.innerHTML = `
-                <div style="text-align: center; padding: 2.5rem 1rem;">
-                    <div style="font-size: 2.5rem; color: var(--accent-pink); margin-bottom: 10px;">✨</div>
-                    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--deep-dark);">تم تأكيد طلبك بنجاح!</h3>
-                    <p style="font-size: 0.9rem; color: #555; margin-bottom: 20px;">شكراً لاختيارك LORIGINA. تم تسجيل طلبك في لوحة التحكم، وسنتصل بك قريباً للتأكيد والشحن.</p>
-                    <a href="https://wa.me/213782871508?text=مرحباً، لقد أكدت طلبي للتو واسمي ${encodeURIComponent(name)} وأود الاستفسار عن..." target="_blank" style="display: inline-block; background-color: var(--whatsapp-green); color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-size: 0.9rem; font-weight: 700; border: 2px solid var(--border-dark);">التواصل عبر واتساب للاستفسار</a>
-                </div>
-            `;
-
-            cart = [];
-        }
-
-        fetchProducts();
-    </script>
 </body>
 </html>
