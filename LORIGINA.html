@@ -1,568 +1,255 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LORIGINA — مواد لصنع أفكارك</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            /* لوحة الألوان الجديدة: أبيض، أسود، وردي باستيل، ووردي غامق فخم */
-            --bg-main: #F8F2F4;
-            --bg-card: #FFFFFF;
-            --text-dark: #111111;         /* الأسود الأساسي للنصوص القوية */
-            --text-muted: #6E5A62;        /* رمادي وردي هادئ للنصوص الفرعية */
-            --pastel-pink: #E2B5C1;       /* وردي باستيل ناعم */
-            --dark-pink: #8F3A52;         /* وردي غامق عميق وفخم للأزرار والعناصر البارزة */
-            --dark-pink-hover: #752E42;   /* وردي غامق أداكن للـ Hover */
-            --border: #E8D4DC;            /* حدود ناعمة متناسقة */
-        }
+<!-- بالون "مستشار" الذكي الطافٍ -->
+<button class="ai-floating-balloon" onclick="toggleAIChat()" title="مستشار - مساعدك الذكي">
+    <span class="balloon-icon">🎈</span>
+    <span class="balloon-text">مستشار</span>
+</button>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-dark);
-            line-height: 1.7;
-        }
-
-        header {
-            background-color: var(--bg-card);
-            padding: 1.2rem 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .logo-tagline {
-            font-size: 0.7rem;
-            color: var(--dark-pink);
-            letter-spacing: 1.5px;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-top: -2px;
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .cart-trigger {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 8px 18px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .cart-trigger:hover {
-            border-color: var(--dark-pink);
-            color: var(--dark-pink);
-        }
-
-        .cart-badge {
-            background-color: var(--dark-pink);
-            color: #fff;
-            font-size: 0.75rem;
-            padding: 1px 6px;
-            border-radius: 50%;
-        }
-
-        .hero {
-            padding: 5rem 2rem 4rem;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            font-weight: 300;
-            color: var(--text-dark);
-            margin-bottom: 1rem;
-            letter-spacing: 1px;
-        }
-
-        .hero h1 span {
-            font-weight: 700;
-            color: var(--dark-pink);
-        }
-
-        .hero p {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            font-weight: 300;
-        }
-
-        .container {
-            max-width: 1300px;
-            margin: 0 auto 5rem;
-            padding: 0 2rem;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .product-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(17, 17, 17, 0.06);
-            border-color: var(--pastel-pink);
-        }
-
-        .product-img {
-            height: 260px;
-            background-color: #F4ECEF;
-            background-size: cover;
-            background-position: center;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .product-info {
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .product-title {
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 6px;
-        }
-
-        .product-desc {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-            font-weight: 300;
-        }
-
-        .product-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--border);
-            padding-top: 1rem;
-            margin-top: auto;
-        }
-
-        .product-price {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-dark);
-        }
-
-        .btn-add {
-            background-color: var(--dark-pink);
-            color: #FFFFFF;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: background-color 0.2s;
-        }
-
-        .btn-add:hover {
-            background-color: var(--dark-pink-hover);
-        }
-
-        .cart-drawer-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(17, 17, 17, 0.4);
-            backdrop-filter: blur(2px);
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .cart-drawer-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .cart-drawer {
-            position: fixed;
-            top: 0;
-            left: -400px;
-            width: 100%;
-            max-width: 380px;
-            height: 100%;
-            background: var(--bg-card);
-            z-index: 1001;
-            box-shadow: -5px 0 25px rgba(17, 17, 17, 0.08);
-            transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            flex-direction: column;
-            padding: 2rem;
-            border-left: 1px solid var(--border);
-        }
-
-        .cart-drawer.active {
-            left: 0;
-        }
-
-        .drawer-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .drawer-header h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .close-drawer {
-            background: none;
-            border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-            color: var(--text-muted);
-        }
-
-        .cart-items-container {
-            flex-grow: 1;
-            overflow-y: auto;
-            margin-bottom: 1.5rem;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.9rem;
-        }
-
-        .cart-item-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .cart-item-name {
-            font-weight: 500;
-            color: var(--text-dark);
-        }
-
-        .cart-item-price {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        .remove-item-btn {
-            background: none;
-            border: none;
-            color: var(--dark-pink);
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-family: 'Tajawal', sans-serif;
-        }
-
-        .checkout-form .form-group {
-            margin-bottom: 12px;
-        }
-
-        .checkout-form label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 5px;
-            color: var(--text-muted);
-        }
-
-        .checkout-form input {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 0.9rem;
-            background-color: var(--bg-main);
-            color: var(--text-dark);
-            transition: border-color 0.2s;
-        }
-
-        .checkout-form input:focus {
-            outline: none;
-            border-color: var(--dark-pink);
-            background-color: #fff;
-        }
-
-        .btn-submit {
-            width: 100%;
-            background-color: var(--dark-pink);
-            color: #fff;
-            border: none;
-            padding: 12px;
-            border-radius: 4px;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 500;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background-color 0.2s;
-        }
-
-        .btn-submit:hover {
-            background-color: var(--dark-pink-hover);
-        }
-
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 2.5rem;
-            text-align: center;
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            background-color: var(--bg-card);
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="logo-container">
-            <div class="logo">LORIGINA</div>
-            <div class="logo-tagline">PASTEL & BOLD CHIC</div>
+<!-- نافذة الدردشة -->
+<div id="aiChatModal" class="ai-chat-modal">
+    <div class="ai-chat-header">
+        <div class="ai-chat-title">
+            <span class="ai-status-dot"></span>
+            <span>مستشار — Lorigina</span>
         </div>
-        <div class="nav-actions">
-            <button class="cart-trigger" onclick="toggleCartDrawer()">
-                <span>حقيبة المشتريات</span>
-                <span id="cartCount" class="cart-badge">0</span>
-            </button>
-        </div>
-    </header>
-
-    <section class="hero">
-        <h1>خامات أنيقة <span>لتلهم أفكارك الإبداعية</span></h1>
-        <p>تشكيلة راقية من المواد الأولية واللوازم الحرفية بتصميم عصري يجمع النعومة والاحترافية.</p>
-    </section>
-
-    <div class="container">
-        <div id="productsGrid" class="products-grid">
-            <p style="text-align: center; color: var(--text-muted); grid-column: 1/-1; padding: 3rem 0;">جاري تحميل المواد الحرفية...</p>
-        </div>
+        <button class="ai-close-btn" onclick="toggleAIChat()">×</button>
     </div>
+    <div id="aiChatMessages" class="ai-chat-messages">
+        <div class="ai-msg ai-bot">أهلاً بكِ! أنا "مستشار"، مساعدك الذكي في Lorigina. كيف يمكنني إلهام مشروعك الحرفي اليوم؟ ✨</div>
+    </div>
+    <div class="ai-chat-input-area">
+        <input type="text" id="aiUserInput" placeholder="اكتبي استفسارك هنا..." onkeypress="handleAIPress(event)">
+        <button onclick="sendAIMessage()">إرسال</button>
+    </div>
+</div>
 
-    <div id="cartOverlay" class="cart-drawer-overlay" onclick="toggleCartDrawer()"></div>
-    <div id="cartDrawer" class="cart-drawer">
-        <div class="drawer-header">
-            <h3>حقيبة المشتريات</h3>
-            <button class="close-drawer" onclick="toggleCartDrawer()">×</button>
-        </div>
+<style>
+/* تصميم البالون الذكي الطافٍ */
+.ai-floating-balloon {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--dark-pink);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 35px 35px 35px 6px; /* شكل يشبه البالون مع ذيل ناعم للأسفل */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(143, 58, 82, 0.35);
+    z-index: 999;
+    animation: floatBalloon 3s ease-in-out infinite;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+@keyframes floatBalloon {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(1.5deg);
+    }
+}
+
+.ai-floating-balloon:hover {
+    background-color: var(--dark-pink-hover);
+    animation-play-state: paused;
+    transform: scale(1.06);
+}
+
+.balloon-icon {
+    font-size: 1.1rem;
+}
+
+/* نافذة الدردشة */
+.ai-chat-modal {
+    position: fixed;
+    bottom: 95px;
+    right: 30px;
+    width: 350px;
+    height: 450px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(17, 17, 17, 0.1);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ai-chat-modal.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.ai-chat-header {
+    padding: 12px 16px;
+    background-color: var(--bg-main);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.ai-chat-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.ai-status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+}
+
+.ai-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.ai-chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.88rem;
+}
+
+.ai-msg {
+    padding: 10px 14px;
+    border-radius: 8px;
+    max-width: 85%;
+    line-height: 1.5;
+}
+
+.ai-bot {
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    align-self: flex-start;
+    border-bottom-right-radius: 2px;
+}
+
+.ai-user {
+    background-color: var(--dark-pink);
+    color: #fff;
+    align-self: flex-end;
+    border-bottom-left-radius: 2px;
+}
+
+.ai-chat-input-area {
+    padding: 12px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+    background: var(--bg-card);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.ai-chat-input-area input {
+    flex-grow: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    background: var(--bg-main);
+    color: var(--text-dark);
+}
+
+.ai-chat-input-area input:focus {
+    border-color: var(--dark-pink);
+}
+
+.ai-chat-input-area button {
+    background-color: var(--dark-pink);
+    color: #fff;
+    border: none;
+    padding: 0 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.85rem;
+    transition: background-color 0.2s;
+}
+
+.ai-chat-input-area button:hover {
+    background-color: var(--dark-pink-hover);
+}
+</style>
+
+<script>
+function toggleAIChat() {
+    const modal = document.getElementById('aiChatModal');
+    modal.classList.toggle('active');
+}
+
+function handleAIPress(e) {
+    if (e.key === 'Enter') {
+        sendAIMessage();
+    }
+}
+
+async function sendAIMessage() {
+    const input = document.getElementById('aiUserInput');
+    const text = input.value.trim();
+    if (!text) return;
+
+    const messagesContainer = document.getElementById('aiChatMessages');
+    
+    messagesContainer.innerHTML += `<div class="ai-msg ai-user">${escapeHtml(text)}</div>`;
+    input.value = '';
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    const loadingId = 'loading-' + Date.now();
+    messagesContainer.innerHTML += `<div id="${loadingId}" class="ai-msg ai-bot" style="color: var(--text-muted);">جاري التفكير...</div>`;
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    try {
+        const response = await fetch('/api/app', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: text })
+        });
         
-        <div id="cartItemsList" class="cart-items-container">
-            <p style="color: var(--text-muted); text-align: center; margin-top: 2rem;">الحقيبة فارغة حالياً</p>
-        </div>
-
-        <form id="checkoutForm" class="checkout-form" onsubmit="submitOrder(event)">
-            <div class="form-group">
-                <label>الاسم الكامل</label>
-                <input type="text" id="clientName" required>
-            </div>
-            <div class="form-group">
-                <label>رقم الهاتف</label>
-                <input type="tel" id="clientPhone" required>
-            </div>
-            <div class="form-group">
-                <label>عنوان التوصيل</label>
-                <input type="text" id="clientAddress" required>
-            </div>
-            <button type="submit" class="btn-submit">تأكيد الطلب</button>
-        </form>
-    </div>
-
-    <footer>
-        <p>© 2026 Lorigina Studio. كافة الحقوق محفوظة لمشاريع الحرف اليدوية.</p>
-    </footer>
-
-    <script>
-        let products = [];
-        let cart = [];
-
-        const productsApiURL = "https://script.google.com/macros/s/AKfycbzS6TcDNjAz6HvuPRYBYXYtte5rn88du0EYxvk-bI8y3A0okL8dOUoLIjvDpPZdN0U0/exec";
-
-        function fetchProducts() {
-            fetch(productsApiURL)
-                .then(res => res.json())
-                .then(data => {
-                    products = data;
-                    renderProducts();
-                })
-                .catch(err => {
-                    console.error("خطأ في جلب المنتجات:", err);
-                    document.getElementById('productsGrid').innerHTML = '<p style="text-align: center; color: var(--text-muted); grid-column: 1/-1;">تعذر تحميل المنتجات، تأكد من الاتصال.</p>';
-                });
+        const data = await response.json();
+        document.getElementById(loadingId).remove();
+        
+        if (data.reply) {
+            messagesContainer.innerHTML += `<div class="ai-msg ai-bot">${escapeHtml(data.reply)}</div>`;
+        } else {
+            messagesContainer.innerHTML += `<div class="ai-msg ai-bot">عذراً، حدث خطأ في الرد.</div>`;
         }
+    } catch (err) {
+        document.getElementById(loadingId).remove();
+        messagesContainer.innerHTML += `<div class="ai-msg ai-bot">تعذر الاتصال بالمساعد حالياً.</div>`;
+    }
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
 
-        function renderProducts() {
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = '';
-            
-            if(products.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; color: var(--text-muted); grid-column: 1/-1;">لا توجد منتجات متاحة حالياً</p>';
-                return;
-            }
-
-            products.forEach(product => {
-                grid.innerHTML += `
-                    <div class="product-card">
-                        <div class="product-img" style="background-image: url('${product.image}')"></div>
-                        <div class="product-info">
-                            <h3 class="product-title">${product.name}</h3>
-                            <p class="product-desc">${product.desc}</p>
-                            <div class="product-footer">
-                                <span class="product-price">${product.price} DA</span>
-                                <button class="btn-add" onclick="addToCart('${product.id}')">إضافة</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function addToCart(id) {
-            const product = products.find(p => p.id == id);
-            if(product) {
-                cart.push(product);
-                updateCartUI();
-            }
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            document.getElementById('cartCount').innerText = cart.length;
-            const list = document.getElementById('cartItemsList');
-            
-            if(cart.length === 0) {
-                list.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 2rem;">الحقيبة فارغة حالياً</p>';
-                return;
-            }
-
-            list.innerHTML = cart.map((item, index) => `
-                <div class="cart-item">
-                    <div class="cart-item-info">
-                        <span class="cart-item-name">${item.name}</span>
-                        <span class="cart-item-price">${item.price} DA</span>
-                    </div>
-                    <button class="remove-item-btn" onclick="removeFromCart(${index})">حذف</button>
-                </div>
-            `).join('');
-        }
-
-        function toggleCartDrawer() {
-            document.getElementById('cartDrawer').classList.toggle('active');
-            document.getElementById('cartOverlay').classList.toggle('active');
-        }
-
-        function submitOrder(e) {
-            e.preventDefault();
-            if(cart.length === 0) {
-                alert('الحقيبة فارغة.');
-                return;
-            }
-
-            const submitBtn = document.querySelector('.btn-submit');
-            submitBtn.innerText = "جاري الإرسال...";
-            submitBtn.disabled = true;
-
-            const name = document.getElementById('clientName').value;
-            const phone = document.getElementById('clientPhone').value;
-            const address = document.getElementById('clientAddress').value;
-            
-            let total = cart.reduce((sum, item) => sum + Number(item.price), 0);
-            let itemsStr = cart.map(item => `${item.name} (${item.price} DA)`).join(' | ');
-
-            const formData = new FormData();
-            formData.append('nom', name);
-            formData.append('phone', phone);
-            formData.append('commande', itemsStr);
-            formData.append('adresse', address);
-            formData.append('total', total + " DA");
-
-            const orderApiURL = "https://script.google.com/macros/s/AKfycbzmIVigGqdCuHNDEEHxNwPJ5Kb0smakxKyaz8YaPW9JlBr8qzcUTjDpLIJRIzr-qMHs0Q/exec";
-
-            fetch(orderApiURL, { method: 'POST', body: formData })
-                .then(response => {
-                    alert('تم استلام طلبك بنجاح. سنتواصل معك قريبًا.');
-                    cart = [];
-                    updateCartUI();
-                    toggleCartDrawer();
-                    document.getElementById('checkoutForm').reset();
-                    submitBtn.innerText = "تأكيد الطلب";
-                    submitBtn.disabled = false;
-                })
-                .catch(error => {
-                    alert('حدث خطأ أثناء الإرسال، يجدر المحاولة مجدداً.');
-                    submitBtn.innerText = "تأكيد الطلب";
-                    submitBtn.disabled = false;
-                });
-        }
-
-        fetchProducts();
-    </script>
-</body>
-</html>
+function escapeHtml(text) {
+    return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+</script>
