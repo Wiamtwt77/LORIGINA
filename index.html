@@ -19,11 +19,7 @@
             --border: #E8D4DC;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Tajawal', sans-serif;
@@ -44,33 +40,11 @@
             z-index: 100;
         }
 
-        .logo-container {
-            display: flex;
-            flex-direction: column;
-        }
+        .logo-container { display: flex; flex-direction: column; }
+        .logo { font-size: 1.4rem; font-weight: 700; color: var(--text-dark); letter-spacing: 3px; text-transform: uppercase; }
+        .logo-tagline { font-size: 0.7rem; color: var(--dark-pink); letter-spacing: 1.5px; font-weight: 600; text-transform: uppercase; margin-top: -2px; }
 
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .logo-tagline {
-            font-size: 0.7rem;
-            color: var(--dark-pink);
-            letter-spacing: 1.5px;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-top: -2px;
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+        .nav-actions { display: flex; align-items: center; gap: 20px; }
 
         .cart-trigger {
             background: var(--bg-card);
@@ -87,57 +61,17 @@
             gap: 8px;
             transition: all 0.2s ease;
         }
+        .cart-trigger:hover { border-color: var(--dark-pink); color: var(--dark-pink); }
 
-        .cart-trigger:hover {
-            border-color: var(--dark-pink);
-            color: var(--dark-pink);
-        }
+        .cart-badge { background-color: var(--dark-pink); color: #fff; font-size: 0.75rem; padding: 1px 6px; border-radius: 50%; }
 
-        .cart-badge {
-            background-color: var(--dark-pink);
-            color: #fff;
-            font-size: 0.75rem;
-            padding: 1px 6px;
-            border-radius: 50%;
-        }
+        .hero { padding: 5rem 2rem 4rem; text-align: center; max-width: 800px; margin: 0 auto; }
+        .hero h1 { font-size: 2.5rem; font-weight: 300; color: var(--text-dark); margin-bottom: 1rem; }
+        .hero h1 span { font-weight: 700; color: var(--dark-pink); }
+        .hero p { font-size: 1.05rem; color: var(--text-muted); font-weight: 300; }
 
-        .hero {
-            padding: 5rem 2rem 4rem;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            font-weight: 300;
-            color: var(--text-dark);
-            margin-bottom: 1rem;
-            letter-spacing: 1px;
-        }
-
-        .hero h1 span {
-            font-weight: 700;
-            color: var(--dark-pink);
-        }
-
-        .hero p {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            font-weight: 300;
-        }
-
-        .container {
-            max-width: 1300px;
-            margin: 0 auto 4rem;
-            padding: 0 2rem;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-        }
+        .container { max-width: 1300px; margin: 0 auto 4rem; padding: 0 2rem; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
 
         .product-card {
             background: var(--bg-card);
@@ -148,12 +82,7 @@
             flex-direction: column;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(17, 17, 17, 0.06);
-            border-color: var(--pastel-pink);
-        }
+        .product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(17, 17, 17, 0.06); border-color: var(--pastel-pink); }
 
         .product-img {
             height: 260px;
@@ -176,240 +105,72 @@
             font-weight: 500;
         }
 
-        .product-info {
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
+        .product-info { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-title { font-size: 1.05rem; font-weight: 600; color: var(--text-dark); margin-bottom: 6px; }
+        .product-desc { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem; flex-grow: 1; font-weight: 300; }
 
-        .product-title {
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 6px;
-        }
-
-        .product-desc {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-            font-weight: 300;
-        }
-
-        .product-footer {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            border-top: 1px solid var(--border);
-            padding-top: 1rem;
-            margin-top: auto;
-        }
-
-        .price-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .product-price {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-dark);
-        }
-
-        .actions-row {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
+        .product-footer { display: flex; flex-direction: column; gap: 12px; border-top: 1px solid var(--border); padding-top: 1rem; margin-top: auto; }
+        .product-price { font-size: 1.1rem; font-weight: 700; color: var(--text-dark); }
+        .actions-row { display: flex; gap: 10px; align-items: center; }
 
         .qty-input {
-            width: 60px;
-            padding: 6px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 0.9rem;
-            text-align: center;
-            background: var(--bg-main);
-            color: var(--text-dark);
-            outline: none;
+            width: 60px; padding: 6px; border: 1px solid var(--border); border-radius: 4px;
+            font-family: 'Tajawal', sans-serif; font-size: 0.9rem; text-align: center; background: var(--bg-main); color: var(--text-dark); outline: none;
         }
 
         .btn-add {
-            flex-grow: 1;
-            background-color: var(--dark-pink);
-            color: #FFFFFF;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: background-color 0.2s;
+            flex-grow: 1; background-color: var(--dark-pink); color: #FFFFFF; border: none; padding: 8px 16px;
+            border-radius: 4px; cursor: pointer; font-family: 'Tajawal', sans-serif; font-size: 0.85rem; font-weight: 500; transition: background-color 0.2s;
         }
-
-        .btn-add:hover {
-            background-color: var(--dark-pink-hover);
-        }
-
-        .btn-add:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
+        .btn-add:hover { background-color: var(--dark-pink-hover); }
+        .btn-add:disabled { background-color: #ccc; cursor: not-allowed; }
 
         /* الأسئلة الشائعة */
-        .faq-section {
-            max-width: 900px;
-            margin: 0 auto 5rem;
-            padding: 0 2rem;
-        }
-
-        .faq-title {
-            text-align: center;
-            font-size: 1.8rem;
-            font-weight: 400;
-            margin-bottom: 2.5rem;
-            color: var(--text-dark);
-        }
-
-        .faq-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 1.2rem 1.5rem;
-            margin-bottom: 15px;
-        }
-
-        .faq-q {
-            font-weight: 600;
-            font-size: 1.02rem;
-            color: var(--text-dark);
-            margin-bottom: 6px;
-        }
-
-        .faq-a {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            font-weight: 300;
-        }
+        .faq-section { max-width: 900px; margin: 0 auto 5rem; padding: 0 2rem; }
+        .faq-title { text-align: center; font-size: 1.8rem; font-weight: 400; margin-bottom: 2.5rem; color: var(--text-dark); }
+        .faq-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 1.2rem 1.5rem; margin-bottom: 15px; }
+        .faq-q { font-weight: 600; font-size: 1.02rem; color: var(--text-dark); margin-bottom: 6px; }
+        .faq-a { font-size: 0.9rem; color: var(--text-muted); font-weight: 300; }
 
         /* زر واتساب العائم */
         .whatsapp-floating-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: var(--whatsapp-green);
-            color: #fff;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 35px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
-            z-index: 999;
-            text-decoration: none;
-            animation: floatBtn 3s ease-in-out infinite;
-            transition: background-color 0.2s, transform 0.2s;
+            position: fixed; bottom: 30px; right: 30px; background-color: var(--whatsapp-green); color: #fff;
+            border: none; padding: 12px 20px; border-radius: 35px; cursor: pointer; display: flex; align-items: center; gap: 10px;
+            font-family: 'Tajawal', sans-serif; font-size: 0.95rem; font-weight: 600; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+            z-index: 999; text-decoration: none; animation: floatBtn 3s ease-in-out infinite; transition: background-color 0.2s, transform 0.2s;
         }
-
-        @keyframes floatBtn {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .whatsapp-floating-btn:hover {
-            background-color: var(--whatsapp-hover);
-            animation-play-state: paused;
-            transform: scale(1.05);
-            color: #fff;
-        }
+        @keyframes floatBtn { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        .whatsapp-floating-btn:hover { background-color: var(--whatsapp-hover); transform: scale(1.05); color: #fff; }
 
         /* حقيبة المشتريات والنموذج */
         .cart-drawer-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(17, 17, 17, 0.4);
-            backdrop-filter: blur(2px);
-            z-index: 1000;
-            opacity: 0; visibility: hidden;
-            transition: all 0.3s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(17, 17, 17, 0.4); backdrop-filter: blur(2px); z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease;
         }
         .cart-drawer-overlay.active { opacity: 1; visibility: visible; }
         
         .cart-drawer {
             position: fixed; top: 0; left: -420px; width: 100%; max-width: 400px; height: 100%;
             background: var(--bg-card); z-index: 1001; box-shadow: -5px 0 25px rgba(17, 17, 17, 0.08);
-            transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex; flex-direction: column; padding: 2rem; border-left: 1px solid var(--border);
+            transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; padding: 2rem; border-left: 1px solid var(--border);
         }
         .cart-drawer.active { left: 0; }
 
-        .cart-items-container {
-            flex-grow: 1;
-            overflow-y: auto;
-            margin-bottom: 1.5rem;
-        }
+        .cart-items-container { flex-grow: 1; overflow-y: auto; margin-bottom: 1.5rem; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
 
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.9rem;
-        }
-
-        .checkout-form .form-group {
-            margin-bottom: 12px;
-        }
-
-        .checkout-form label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 5px;
-            color: var(--text-muted);
-        }
-
+        .checkout-form .form-group { margin-bottom: 12px; }
+        .checkout-form label { display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 5px; color: var(--text-muted); }
         .checkout-form input {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 0.9rem;
-            background-color: var(--bg-main);
-            color: var(--text-dark);
-            outline: none;
+            width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 4px;
+            font-family: 'Tajawal', sans-serif; font-size: 0.9rem; background-color: var(--bg-main); color: var(--text-dark); outline: none;
         }
         .checkout-form input:focus { border-color: var(--dark-pink); background: #fff; }
 
         .btn-whatsapp-submit {
-            width: 100%;
-            background-color: var(--whatsapp-green);
-            color: #fff;
-            border: none;
-            padding: 12px;
-            border-radius: 4px;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background-color 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            width: 100%; background-color: var(--whatsapp-green); color: #fff; border: none; padding: 12px;
+            border-radius: 4px; font-family: 'Tajawal', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer;
+            margin-top: 10px; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
         }
         .btn-whatsapp-submit:hover { background-color: var(--whatsapp-hover); }
 
@@ -448,15 +209,11 @@
         <h2 class="faq-title">أسئلة شائعة</h2>
         <div class="faq-item">
             <div class="faq-q">كيف يتم تأكيد الطلب؟</div>
-            <div class="faq-a">بعد اختيار المنتجات وتحديد الكميات المطلوبة في حقيبة المشتريات، سيتم تحويلك تلقائياً إلى الواتساب لإرسال الطلب واعتماده مباشرة معنا.</div>
+            <div class="faq-a">بعد اختيار المنتجات وتحديد الكميات في حقيبة المشتريات، يُحفظ طلبك في لوحة التحكم ويتم تحويلك تلقائياً للواتساب لاعتماده.</div>
         </div>
         <div class="faq-item">
             <div class="faq-q">هل توجد خدمة توصيل لجميع الولايّات؟</div>
             <div class="faq-a">نعم، نوفر التوصيل السريع لمختلف ولايات الوطن مع ضمان جودة تغليف الخامات والحرف.</div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-q">هل يمكنني الاستفسار عن خامات مخصصة لمشروعي؟</div>
-            <div class="faq-a">بالتأكيد! يمكنك التواصل معنا في أي وقت عبر زر الواتساب الطافٍ وسنساعدك بكل سرور.</div>
         </div>
     </section>
 
@@ -509,7 +266,10 @@
     <script>
         let products = [];
         let cart = [];
-        const productsApiURL = "https://script.google.com/macros/s/AKfycbzS6TcDNjAz6HvuPRYBYXYtte5rn88du0EYxvk-bI8y3A0okL8dOUoLIjvDpPZdN0U0/exec";
+        
+        // الروابط الخاصة بشيت المنتجات وشيت لوحة التحكم
+        const productsApiURL = "https://script.google.com/macros/s/AKfycbxCfkKY4ZkITQ1zvsziKUBoVar9FUTkGol8aYLASPcq6I2y3_oO7Z78JuY6RikhSei-/exec";
+        const controlApiURL = "https://script.google.com/macros/s/AKfycbwju2DKeIhUsQVJox6bdnFA6El2dsC_yDFGh2JKwNw43HgDgy8G_QFkGWZCORX5EYKFHA/exec";
 
         function fetchProducts() {
             fetch(productsApiURL)
@@ -534,7 +294,7 @@
             }
 
             products.forEach(product => {
-                const stock = product.stock !== undefined ? Number(product.stock) : 999;
+                const stock = product.stock !== undefined && product.stock !== "" ? Number(product.stock) : 999;
                 const isOutOfStock = stock <= 0;
 
                 grid.innerHTML += `
@@ -636,12 +396,29 @@
             
             let grandTotal = cart.reduce((sum, item) => sum + (Number(item.price) * item.quantity), 0);
             let itemsStr = cart.map(item => `• ${item.name} (الكمية: ${item.quantity}) - ${item.price * item.quantity} DA`).join('%0A');
+            let itemsNamesStr = cart.map(item => `${item.name} (${item.quantity})`).join(', ');
 
+            // تسجيل الطلب في لوحة التحكم تلقائياً عبر الـ API الثاني
+            fetch(controlApiURL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: name,
+                    phone: phone,
+                    commande: itemsNamesStr,
+                    adresse: address,
+                    total: grandTotal
+                })
+            }).catch(err => console.log("Order logged", err));
+
+            // فتح الواتساب بتفاصيل الطلب
             let message = `مرحباً، أود تأكيد طلب جديد:%0A%0A*المنتجات:*%0A${itemsStr}%0A%0A*المجموع الكلي:* ${grandTotal} DA%0A%0A*الاسم:* ${name}%0A*الهاتف:* ${phone}%0A*العنوان:* ${address}`;
             
             window.open(`https://wa.me/213782871508?text=${message}`, '_blank');
         }
 
+        // جلب المنتجات عند فتح الصفحة
         fetchProducts();
     </script>
 </body>
