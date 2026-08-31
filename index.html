@@ -161,6 +161,19 @@
             background-size: cover;
             background-position: center;
             border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .stock-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(17, 17, 17, 0.75);
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
         }
 
         .product-info {
@@ -187,11 +200,17 @@
 
         .product-footer {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 12px;
             border-top: 1px solid var(--border);
             padding-top: 1rem;
             margin-top: auto;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .product-price {
@@ -200,7 +219,27 @@
             color: var(--text-dark);
         }
 
+        .actions-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .qty-input {
+            width: 60px;
+            padding: 6px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.9rem;
+            text-align: center;
+            background: var(--bg-main);
+            color: var(--text-dark);
+            outline: none;
+        }
+
         .btn-add {
+            flex-grow: 1;
             background-color: var(--dark-pink);
             color: #FFFFFF;
             border: none;
@@ -217,7 +256,12 @@
             background-color: var(--dark-pink-hover);
         }
 
-        /* قسم الأسئلة الشائعة */
+        .btn-add:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* الأسئلة الشائعة */
         .faq-section {
             max-width: 900px;
             margin: 0 auto 5rem;
@@ -253,7 +297,7 @@
             font-weight: 300;
         }
 
-        /* زر واتساب الطافٍ */
+        /* زر واتساب العائم */
         .whatsapp-floating-btn {
             position: fixed;
             bottom: 30px;
@@ -404,7 +448,7 @@
         <h2 class="faq-title">أسئلة شائعة</h2>
         <div class="faq-item">
             <div class="faq-q">كيف يتم تأكيد الطلب؟</div>
-            <div class="faq-a">بعد اختيار المنتجات وملء بياناتك في حقيبة المشتريات، سيتم تحويلك تلقائياً إلى الواتساب لإرسال الطلب واعتماده مباشرة معنا.</div>
+            <div class="faq-a">بعد اختيار المنتجات وتحديد الكميات المطلوبة في حقيبة المشتريات، سيتم تحويلك تلقائياً إلى الواتساب لإرسال الطلب واعتماده مباشرة معنا.</div>
         </div>
         <div class="faq-item">
             <div class="faq-q">هل توجد خدمة توصيل لجميع الولايّات؟</div>
@@ -432,6 +476,10 @@
         
         <div id="cartItemsList" class="cart-items-container">
             <p style="color: var(--text-muted); text-align: center; margin-top: 2rem;">الحقيبة فارغة حالياً</p>
+        </div>
+
+        <div id="cartTotalContainer" style="font-weight: 700; margin-bottom: 1rem; text-align: left; font-size: 1.05rem; display: none;">
+            المجموع الكلي: <span id="cartTotalPrice">0</span> DA
         </div>
 
         <form id="checkoutForm" class="checkout-form" onsubmit="submitOrderWhatsApp(event)">
@@ -486,15 +534,25 @@
             }
 
             products.forEach(product => {
+                const stock = product.stock !== undefined ? Number(product.stock) : 999;
+                const isOutOfStock = stock <= 0;
+
                 grid.innerHTML += `
                     <div class="product-card">
-                        <div class="product-img" style="background-image: url('${product.image}')"></div>
+                        <div class="product-img" style="background-image: url('${product.image}')">
+                            <span class="stock-badge">${isOutOfStock ? 'نفدت الكمية' : 'المتوفر: ' + stock}</span>
+                        </div>
                         <div class="product-info">
                             <h3 class="product-title">${product.name}</h3>
                             <p class="product-desc">${product.desc}</p>
                             <div class="product-footer">
-                                <span class="product-price">${product.price} DA</span>
-                                <button class="btn-add" onclick="addToCart('${product.id}')">إضافة</button>
+                                <div class="price-row">
+                                    <span class="product-price">${product.price} DA</span>
+                                </div>
+                                <div class="actions-row">
+                                    <input type="number" id="qty-${product.id}" class="qty-input" value="1" min="1" max="${stock}" ${isOutOfStock ? 'disabled' : ''}>
+                                    <button class="btn-add" onclick="addToCart('${product.id}')" ${isOutOfStock ? 'disabled' : ''}>${isOutOfStock ? 'غير متوفر' : 'إضافة'}</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -504,8 +562,16 @@
 
         function addToCart(id) {
             const product = products.find(p => p.id == id);
+            const qtyInput = document.getElementById(`qty-${id}`);
+            const selectedQty = parseInt(qtyInput.value) || 1;
+
             if(product) {
-                cart.push(product);
+                const existingItem = cart.find(item => item.id == id);
+                if(existingItem) {
+                    existingItem.quantity += selectedQty;
+                } else {
+                    cart.push({ ...product, quantity: selectedQty });
+                }
                 updateCartUI();
                 toggleCartDrawer();
             }
@@ -517,23 +583,39 @@
         }
 
         function updateCartUI() {
-            document.getElementById('cartCount').innerText = cart.length;
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').innerText = totalCount;
+            
             const list = document.getElementById('cartItemsList');
+            const totalContainer = document.getElementById('cartTotalContainer');
             
             if(cart.length === 0) {
                 list.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 2rem;">الحقيبة فارغة حالياً</p>';
+                totalContainer.style.display = 'none';
                 return;
             }
 
-            list.innerHTML = cart.map((item, index) => `
-                <div class="cart-item">
-                    <div>
-                        <div style="font-weight: 500;">${item.name}</div>
-                        <div style="color: var(--text-muted); font-size: 0.85rem;">${item.price} DA</div>
+            totalContainer.style.display = 'block';
+            let grandTotal = 0;
+
+            list.innerHTML = cart.map((item, index) => {
+                let itemTotal = Number(item.price) * item.quantity;
+                grandTotal += itemTotal;
+                return `
+                    <div class="cart-item">
+                        <div>
+                            <div style="font-weight: 500;">${item.name}</div>
+                            <div style="color: var(--text-muted); font-size: 0.85rem;">الكمية: ${item.quantity} × ${item.price} DA</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-weight: 600; font-size: 0.88rem;">${itemTotal} DA</span>
+                            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--dark-pink); cursor:pointer; font-size:0.85rem; font-family:'Tajawal', sans-serif;">حذف</button>
+                        </div>
                     </div>
-                    <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--dark-pink); cursor:pointer; font-size:0.85rem; font-family:'Tajawal', sans-serif;">حذف</button>
-                </div>
-            `).join('');
+                `;
+            }).join('');
+
+            document.getElementById('cartTotalPrice').innerText = grandTotal;
         }
 
         function toggleCartDrawer() {
@@ -552,10 +634,10 @@
             const phone = document.getElementById('clientPhone').value;
             const address = document.getElementById('clientAddress').value;
             
-            let total = cart.reduce((sum, item) => sum + Number(item.price), 0);
-            let itemsStr = cart.map(item => `• ${item.name} (${item.price} DA)`).join('%0A');
+            let grandTotal = cart.reduce((sum, item) => sum + (Number(item.price) * item.quantity), 0);
+            let itemsStr = cart.map(item => `• ${item.name} (الكمية: ${item.quantity}) - ${item.price * item.quantity} DA`).join('%0A');
 
-            let message = `مرحباً، أود تأكيد طلب جديد:%0A%0A*المنتجات:*%0A${itemsStr}%0A%0A*المجموع:* ${total} DA%0A%0A*الاسم:* ${name}%0A*الهاتف:* ${phone}%0A*العنوان:* ${address}`;
+            let message = `مرحباً، أود تأكيد طلب جديد:%0A%0A*المنتجات:*%0A${itemsStr}%0A%0A*المجموع الكلي:* ${grandTotal} DA%0A%0A*الاسم:* ${name}%0A*الهاتف:* ${phone}%0A*العنوان:* ${address}`;
             
             window.open(`https://wa.me/213782871508?text=${message}`, '_blank');
         }
