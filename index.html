@@ -93,6 +93,9 @@
             position: relative;
             border-bottom: 1px solid var(--border);
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .product-img-container img {
             width: 100%;
@@ -249,7 +252,7 @@
         <div class="product-modal" id="productModalBox">
             <button class="modal-close-btn" onclick="closeProductModalDirect()">×</button>
             <div class="modal-gallery">
-                <img id="modalMainImg" src="" alt="صورة المنتج" class="modal-main-img" onerror="this.src='https://placehold.co/400x300/FDF5F8/8F2D4E?text=LORIGINA';">
+                <img id="modalMainImg" src="" alt="صورة المنتج" class="modal-main-img" onerror="this.onerror=null; this.src='https://placehold.co/400x300/FDF5F8/8F2D4E?text=LORIGINA';">
                 <div class="modal-thumbs" id="modalThumbsContainer"></div>
             </div>
             <div class="modal-content-side">
@@ -325,17 +328,17 @@
         const productsApiURL = "https://script.google.com/macros/s/AKfycbxCfkKY4ZkITQ1zvsziKUBoVar9FUTkGol8aYLASPcq6I2y3_oO7Z78JuY6RikhSei-/exec";
         const controlApiURL = "https://script.google.com/macros/s/AKfycbwAqENb9AdD1N-Md3BQX8hnrfZ13mckcaZdLZFVksedgndvdYTLVEJ3rxD60fUUbkurug/exec";
 
-        // مُحوّل ذكي لروابط الصور (خصوصاً روابط غوغل درايف لتظهر مباشرة في المتصفح)
         function formatImageUrl(url) {
             if (!url) return '';
             url = url.trim();
-            // تحويل روابط غوغل درايف للمشاركة إلى رابط عرض مباشر
             let match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
             if (match && match[1]) {
                 return `https://lh3.googleusercontent.com/d/${match[1]}`;
             }
             return url;
         }
+
+        const placeholderImg = "https://placehold.co/400x300/FDF5F8/8F2D4E?text=LORIGINA";
 
         function fetchProducts() {
             fetch(productsApiURL)
@@ -364,13 +367,13 @@
                 const isOutOfStock = stock <= 0;
 
                 let imagesArray = product.image ? product.image.split(',').map(img => formatImageUrl(img)).filter(img => img !== "") : [];
-                let firstImg = imagesArray.length > 0 ? imagesArray[0] : '';
+                let firstImg = imagesArray.length > 0 ? imagesArray[0] : placeholderImg;
 
                 grid.innerHTML += `
                     <div class="product-card" onclick="openProductModal('${product.id}')">
                         <div class="product-img-container">
                             <span class="stock-badge">${isOutOfStock ? 'نفدت الكمية' : 'المتوفر: ' + stock}</span>
-                            <img src="${firstImg}" alt="${product.name}" loading="lazy" onerror="this.src='https://placehold.co/400x300/FDF5F8/8F2D4E?text=LORIGINA';">
+                            <img src="${firstImg}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='${placeholderImg}';">
                         </div>
                         <div class="product-info">
                             <h3 class="product-title">${product.name}</h3>
@@ -421,14 +424,14 @@
                     thumbsContainer.style.display = 'flex';
                     imagesArray.forEach((imgUrl, idx) => {
                         thumbsContainer.innerHTML += `
-                            <img src="${imgUrl}" class="modal-thumb ${idx === 0 ? 'active' : ''}" onclick="changeModalImage('${imgUrl}', this)" onerror="this.src='https://placehold.co/100x100/FDF5F8/8F2D4E?text=LORIGINA';">
+                            <img src="${imgUrl}" class="modal-thumb ${idx === 0 ? 'active' : ''}" onclick="changeModalImage('${imgUrl}', this)" onerror="this.onerror=null; this.src='${placeholderImg}';">
                         `;
                     });
                 } else {
                     thumbsContainer.style.display = 'none';
                 }
             } else {
-                mainImgElement.src = 'https://placehold.co/400x300/FDF5F8/8F2D4E?text=LORIGINA';
+                mainImgElement.src = placeholderImg;
                 thumbsContainer.style.display = 'none';
             }
 
@@ -541,7 +544,7 @@
             }
 
             const name = document.getElementById('clientName').value;
-            const phone = document.getElementById('clientPhone',).value;
+            const phone = document.getElementById('clientPhone').value;
             const address = document.getElementById('clientAddress').value;
             
             let grandTotal = cart.reduce((sum, item) => sum + (Number(item.price) * item.quantity), 0);
