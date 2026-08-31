@@ -3,159 +3,388 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم العصرية والمرنة</title>
-    <!-- استدعاء مكتبة Tailwind CSS للتصميم السريع والعصري -->
+    <title>Lorigina | متجر لوازم التغليف والحرف اليدوية العصري</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         brand: {
-                            50: '#f0f9ff',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            900: '#0369a1',
+                            50: '#fdf2f8',
+                            100: '#fce7f3',
+                            500: '#ec4899',
+                            600: '#db2777',
+                            700: '#be185d',
+                            900: '#831843',
                         }
+                    },
+                    fontFamily: {
+                        sans: ['Tajawal', 'sans-serif']
                     }
                 }
             }
         }
     </script>
+    <!-- Google Fonts Tajawal -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
-        body {
-            font-family: 'Cairo', sans-serif;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
+        body { font-family: 'Tajawal', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-nav { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
+<body class="min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
 
-    <!-- شريط التنقل العلوي العصري -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-900/80 border-b border-slate-800 px-6 py-4 flex items-center justify-between">
-        <div class="flex items-center space-x-4 space-x-reverse">
-            <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-brand-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-brand-500/30">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                </svg>
+    <!-- Top Announcement Bar -->
+    <div class="bg-gradient-to-r from-brand-600 via-pink-600 to-purple-600 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium tracking-wide shadow-inner">
+        ✨ التوصيل متوفر لجميع الولايان | اطلب الآن واكتشف تشكيلة لوازم التغليف والورود العصرية ✨
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 space-x-reverse">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-500 to-purple-500 flex items-center justify-center shadow-lg shadow-brand-500/30">
+                    <i class="fa-solid fa-gift text-white text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-2xl font-black tracking-wider bg-gradient-to-r from-pink-400 via-brand-500 to-purple-400 bg-clip-text text-transparent">LORIGINA</span>
+                    <span class="block text-[10px] text-slate-400 tracking-widest uppercase">Artisan & Craft Studio</span>
+                </div>
             </div>
-            <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">منظومة المستقبل</span>
-        </div>
-        <div class="flex items-center space-x-3 space-x-reverse">
-            <button class="px-4 py-2 text-sm font-medium bg-slate-800 hover:bg-slate-700 rounded-lg transition-all duration-200 border border-slate-700">الإشعارات</button>
-            <div class="h-9 w-9 rounded-full bg-gradient-to-r from-brand-500 to-purple-600 flex items-center justify-center font-bold text-sm shadow">م</div>
+
+            <!-- Search Bar -->
+            <div class="hidden md:flex items-center flex-1 max-w-md mx-8">
+                <div class="relative w-full">
+                    <input type="text" id="searchInput" oninput="filterProducts()" placeholder="ابحث عن شرائط، أوراق تغليف، خرز، أحجار راين..." class="w-full bg-slate-800/80 border border-slate-700 rounded-full py-2.5 pr-10 pl-4 text-sm text-slate-200 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
+                    <i class="fa-solid fa-search absolute right-3.5 top-3.5 text-slate-400"></i>
+                </div>
+            </div>
+
+            <!-- Cart & Actions -->
+            <div class="flex items-center space-x-4 space-x-reverse">
+                <button onclick="toggleCart()" class="relative p-2.5 rounded-xl bg-slate-800 border border-slate-700 hover:border-brand-500 text-slate-200 transition group">
+                    <i class="fa-solid fa-shopping-bag text-lg group-hover:text-brand-400 transition"></i>
+                    <span id="cartBadge" class="absolute -top-1.5 -left-1.5 bg-brand-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold shadow-md scale-0 transition-transform duration-300">0</span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <!-- المحتوى الرئيسي المرن -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        <!-- بطاقة إحصائية عصرية 1 -->
-        <div class="glass-card bg-slate-800/50 p-6 rounded-2xl shadow-xl border border-slate-700/50 hover:border-brand-500/50 transition-all duration-300 group">
-            <div class="flex justify-between items-start">
-                <div>
-                    <p class="text-sm font-medium text-slate-400">إجمالي الأرباح</p>
-                    <h3 class="text-3xl font-bold mt-2 text-white group-hover:text-brand-400 transition-colors">$45,280</h3>
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 via-slate-900/90 to-slate-950">
+        <div class="absolute inset-0 opacity-25 bg-[radial-gradient(#ec4899_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-right">
+                <div class="inline-flex items-center space-x-2 space-x-reverse bg-brand-500/10 border border-brand-500/20 px-3.5 py-1.5 rounded-full text-brand-400 text-xs font-semibold">
+                    <i class="fa-solid fa-sparkles"></i>
+                    <span>المتجر العصري الأول للوازم الحرف اليدوية</span>
                 </div>
-                <span class="p-3 bg-brand-500/10 text-brand-400 rounded-xl">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </span>
-            </div>
-            <div class="mt-4 flex items-center text-emerald-400 text-sm font-semibold">
-                <span>+12.5%</span>
-                <span class="text-slate-400 mr-2 font-normal">منذ الشهر الماضي</span>
-            </div>
-        </div>
-
-        <!-- بطاقة إحصائية عصرية 2 -->
-        <div class="glass-card bg-slate-800/50 p-6 rounded-2xl shadow-xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300 group">
-            <div class="flex justify-between items-start">
-                <div>
-                    <p class="text-sm font-medium text-slate-400">المستخدمين النشطين</p>
-                    <h3 class="text-3xl font-bold mt-2 text-white group-hover:text-indigo-400 transition-colors">1,482</h3>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                    اصنع إبداعاتك بلمسة <span class="bg-gradient-to-r from-pink-400 via-brand-500 to-purple-500 bg-clip-text text-transparent">فخمة وعصرية</span>
+                </h1>
+                <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                    نقدم لك أرقى لوازم تغليف الزهور، شرائط الساتان الفاخرة، الخرز، والأحجار اللامعة لتمنح أعمالك طابعاً احترافياً ومميزاً.
+                </p>
+                <div class="flex flex-wrap justify-center lg:justify-start gap-4 pt-4">
+                    <a href="#productsGrid" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-brand-600 to-purple-600 text-white font-bold shadow-lg shadow-brand-600/30 hover:opacity-95 transition transform hover:-translate-y-0.5">
+                        تصفح المنتجات الآن <i class="fa-solid fa-arrow-left mr-2"></i>
+                    </a>
                 </div>
-                <span class="p-3 bg-indigo-500/10 text-indigo-400 rounded-xl">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                </span>
             </div>
-            <div class="mt-4 flex items-center text-emerald-400 text-sm font-semibold">
-                <span>+8.2%</span>
-                <span class="text-slate-400 mr-2 font-normal">نمو أسبوعي</span>
-            </div>
-        </div>
-
-        <!-- بطاقة إحصائية عصرية 3 -->
-        <div class="glass-card bg-slate-800/50 p-6 rounded-2xl shadow-xl border border-slate-700/50 hover:border-purple-500/50 transition-all duration-300 group">
-            <div class="flex justify-between items-start">
-                <div>
-                    <p class="text-sm font-medium text-slate-400">معدل التحويل</p>
-                    <h3 class="text-3xl font-bold mt-2 text-white group-hover:text-purple-400 transition-colors">8.4%</h3>
+            <div class="lg:col-span-5">
+                <div class="glass-card rounded-3xl p-6 shadow-2xl relative group">
+                    <div class="absolute -top-3 -right-3 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">الأكثر طلباً ⭐</div>
+                    <div class="aspect-video sm:aspect-square rounded-2xl bg-slate-800 overflow-hidden relative flex items-center justify-center border border-slate-700">
+                        <img src="https://i.ibb.co/39kGd6Nk/3500.png" alt="علبة أحجار راين" class="object-cover w-full h-full group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-6">
+                            <div>
+                                <span class="text-xs text-brand-400 font-bold uppercase tracking-wider">تشكيلة خاصة</span>
+                                <h3 class="text-xl font-bold text-white">علبة أحجار راين (11999 حجر)</h3>
+                                <p class="text-sm text-slate-300 font-semibold mt-1">1000 دج</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <span class="p-3 bg-purple-500/10 text-purple-400 rounded-xl">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                </span>
             </div>
-            <div class="mt-4 flex items-center text-rose-400 text-sm font-semibold">
-                <span>-1.1%</span>
-                <span class="text-slate-400 mr-2 font-normal">مقارنة بالأمس</span>
+        </div>
+    </section>
+
+    <!-- Main Products Section -->
+    <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full" id="productsGrid">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 border-b border-slate-800 pb-6">
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-black text-white">منتجات Lorigina المميزة</h2>
+                <p class="text-sm text-slate-400 mt-1">اختر من تشكيلتنا الواسعة المصممة خصيصاً لتناسب مشاريعك</p>
+            </div>
+            <!-- Category Filter Buttons -->
+            <div class="flex flex-wrap gap-2" id="filterButtons">
+                <button onclick="filterCategory('all')" class="px-4 py-2 rounded-xl text-xs font-bold bg-brand-600 text-white transition filter-btn active-filter" data-cat="all">الكل</button>
+                <button onclick="filterCategory('ribbon')" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 transition filter-btn" data-cat="ribbon">الشرائط والتغليف</button>
+                <button onclick="filterCategory('beads')" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 transition filter-btn" data-cat="beads">الخرز والخيوط</button>
+                <button onclick="filterCategory('rhinestone')" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 transition filter-btn" data-cat="rhinestone">الأحجار والراين</button>
             </div>
         </div>
 
-        <!-- قسم العمليات / الجدول المرن -->
-        <div class="md:col-span-3 bg-slate-800/40 border border-slate-700/60 rounded-2xl p-6 shadow-xl backdrop-blur-md">
-            <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-                <h2 class="text-lg font-bold text-white">العمليات الأخيرة</h2>
-                <button class="px-5 py-2.5 bg-gradient-to-r from-brand-500 to-indigo-600 text-white font-medium rounded-xl shadow-lg shadow-brand-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
-                    + إضافة عملية جديدة
-                </button>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-right text-sm text-slate-300">
-                    <thead class="text-xs uppercase bg-slate-900/60 text-slate-400 border-b border-slate-700">
-                        <tr>
-                            <th scope="col" class="px-6 py-4 rounded-r-xl">العميل</th>
-                            <th scope="col" class="px-6 py-4">الحالة</th>
-                            <th scope="col" class="px-6 py-4">المبلغ</th>
-                            <th scope="col" class="px-6 py-4 rounded-l-xl">التاريخ</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-700/40">
-                        <tr class="hover:bg-slate-700/20 transition-colors">
-                            <td class="px-6 py-4 font-medium text-white flex items-center space-x-3 space-x-reverse">
-                                <div class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold">أ</div>
-                                <span>أحمد محمد</span>
-                            </td>
-                            <td class="px-6 py-4"><span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-semibold">مكتمل</span></td>
-                            <td class="px-6 py-4 font-semibold text-white">$1,200.00</td>
-                            <td class="px-6 py-4 text-slate-400">2026-06-06</td>
-                        </tr>
-                        <tr class="hover:bg-slate-700/20 transition-colors">
-                            <td class="px-6 py-4 font-medium text-white flex items-center space-x-3 space-x-reverse">
-                                <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">س</div>
-                                <span>سارة خالد</span>
-                            </td>
-                            <td class="px-6 py-4"><span class="px-3 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full text-xs font-semibold">قيد المعالجة</span></td>
-                            <td class="px-6 py-4 font-semibold text-white">$850.50</td>
-                            <td class="px-6 py-4 text-slate-400">2026-06-05</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <!-- Products Grid -->
+        <div id="productsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamic Injection via JS -->
         </div>
-
     </main>
 
-    <!-- التذييل -->
-    <footer class="text-center py-6 text-slate-500 text-xs border-t border-slate-800/80 mt-auto">
-        جميع الحقوق محفوظة &copy; 2026 - تصميم عصري ومرن
+    <!-- Cart Slide-over Drawer -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-opacity duration-300 opacity-0">
+        <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm pointer-events-auto" onclick="toggleCart()"></div>
+        <div class="absolute inset-y-0 left-0 max-w-md w-full flex pl-10 pointer-events-auto transform -translate-x-full transition-transform duration-300 ease-in-out" id="cartPanel">
+            <div class="w-full bg-slate-900 border-r border-slate-800 shadow-2xl flex flex-col">
+                <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+                    <div class="flex items-center space-x-2 space-x-reverse">
+                        <i class="fa-solid fa-shopping-cart text-brand-500"></i>
+                        <h3 class="text-lg font-bold text-white">سلة المشتريات</h3>
+                    </div>
+                    <button onclick="toggleCart()" class="text-slate-400 hover:text-white p-2">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+                <div id="cartItemsList" class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-slate-800/60">
+                    <!-- Cart items -->
+                </div>
+                <div class="p-6 border-t border-slate-800 bg-slate-950/50 space-y-4">
+                    <div class="flex justify-between items-center text-lg font-bold text-white">
+                        <span>المجموع الكلي:</span>
+                        <span id="cartTotalPrice" class="text-brand-400">0 دج</span>
+                    </div>
+                    <button onclick="openCheckoutModal()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-600 to-purple-600 text-white font-bold shadow-lg shadow-brand-600/30 hover:opacity-95 transition">
+                        إتمام الطلب الآن <i class="fa-solid fa-arrow-left mr-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
+        <div class="glass-card rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 relative border border-slate-700 shadow-2xl">
+            <button onclick="closeCheckoutModal()" class="absolute top-6 left-6 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div>
+                <h3 class="text-2xl font-black text-white">إتمام طلبك مع Lorigina</h3>
+                <p class="text-xs text-slate-400 mt-1">الرجاء إدخال معلومات التوصيل الخاصة بك بدقة</p>
+            </div>
+            <form id="orderForm" onsubmit="submitOrder(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 mb-1">الاسم الكامل</label>
+                    <input type="text" id="orderName" required placeholder="مثال: أيمن" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 mb-1">رقم الهاتف</label>
+                    <input type="tel" id="orderPhone" required placeholder="05xxxxxxxx" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 mb-1">العنوان / الولاية / البلدية</label>
+                    <input type="text" id="orderAddress" required placeholder="مثال: براقي، الجزائر" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500">
+                </div>
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-600 to-purple-600 text-white font-bold shadow-lg shadow-brand-600/30 hover:opacity-95 transition mt-4">
+                    تأكيد وإرسال الطلب <i class="fa-solid fa-check mr-2"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-8 px-4 text-center text-sm text-slate-500">
+        <p>&copy; 2026 Lorigina Store. جميع الحقوق محفوظة. تصميم عصري مرن ومتطور.</p>
     </footer>
 
+    <!-- JavaScript Application Logic -->
+    <script>
+        const products = [
+            { id: 1, name: "شرائط الساتان", price: 140, category: "ribbon", image: "https://i.ibb.co/39kGd6Nk/3500.png", details: "شريط واحد فاخر", stock: 6 },
+            { id: 2, name: "أوراق تغليف الزهور", price: 130, category: "ribbon", image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80", details: "حزمة 10 أوراق (5 وردية و5 بيضاء)", stock: 10 },
+            { id: 3, name: "خيط مطاطي", price: 200, category: "beads", image: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=600&q=80", details: "خيط بقطر 0.8 ملم و5 متر", stock: 3 },
+            { id: 4, name: "خرز أكريليك أبيض", price: 150, category: "beads", image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80", details: "خرز 4 ملم - 350 خرزة", stock: 10 },
+            { id: 5, name: "أحجار راين ناعمة", price: 70, category: "rhinestone", image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80", details: "150 حجر راين ناعم للزينة", stock: 8 },
+            { id: 7, name: "علبة أحجار راين كبرى", price: 1000, category: "rhinestone", image: "https://i.ibb.co/39kGd6Nk/3500.png", details: "11999 حجر راين بـ 25 لوناً مختلفاً", stock: 1 }
+        ];
+
+        let cart = [];
+        let currentCategory = 'all';
+
+        function renderProducts(items) {
+            const container = document.getElementById('productsContainer');
+            if (items.length === 0) {
+                container.innerHTML = '<div class="col-span-full text-center py-12 text-slate-400">لا توجد منتجات مطابقة لبحثك.</div>';
+                return;
+            }
+            container.innerHTML = items.map(p => `
+                <div class="glass-card rounded-2xl overflow-hidden group hover:border-brand-500/50 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="aspect-video bg-slate-800 overflow-hidden relative">
+                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur-md text-brand-400 text-xs font-bold px-3 py-1 rounded-full border border-slate-700">${p.price} دج</span>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <h3 class="text-lg font-bold text-white group-hover:text-brand-400 transition">${p.name}</h3>
+                            <p class="text-xs text-slate-400">${p.details}</p>
+                            <div class="text-[11px] text-slate-500 font-medium">المخزون المتوفر: <span class="text-emerald-400 font-bold">${p.stock}</span></div>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button onclick="addToCart(${p.id})" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-brand-600 text-slate-200 hover:text-white font-bold text-xs transition flex items-center justify-center space-x-2 space-x-reverse shadow-md">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            <span>إضافة للسلة</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = products.filter(p => {
+                const matchesCat = currentCategory === 'all' || p.category === currentCategory;
+                const matchesQuery = p.name.toLowerCase().includes(query) || p.details.toLowerCase().includes(query);
+                return matchesCat && matchesQuery;
+            });
+            renderProducts(filtered);
+        }
+
+        function filterCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.dataset.cat === cat) {
+                    btn.classList.remove('bg-slate-800', 'text-slate-300');
+                    btn.classList.add('bg-brand-600', 'text-white');
+                } else {
+                    btn.classList.remove('bg-brand-600', 'text-white');
+                    btn.classList.add('bg-slate-800', 'text-slate-300');
+                }
+            });
+            filterProducts();
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                if (existing.qty < product.stock) {
+                    existing.qty++;
+                } else {
+                    alert('عذراً، الكمية المطلوبة تتجاوز المخزون المتوفر.');
+                    return;
+                }
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            updateCartUI();
+            toggleCart();
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cartBadge');
+            const list = document.getElementById('cartItemsList');
+            const totalPriceEl = document.getElementById('cartTotalPrice');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            if (totalItems > 0) {
+                badge.innerText = totalItems;
+                badge.classList.remove('scale-0');
+            } else {
+                badge.classList.add('scale-0');
+            }
+
+            if (cart.length === 0) {
+                list.innerHTML = '<div class="text-center py-12 text-slate-500 text-sm">سلة المشتريات فارغة</div>';
+            } else {
+                list.innerHTML = cart.map(item => `
+                    <div class="py-4 flex items-center justify-between">
+                        <div class="flex items-center space-x-3 space-x-reverse">
+                            <img src="${item.image}" class="w-12 h-12 rounded-lg object-cover bg-slate-800">
+                            <div>
+                                <h4 class="text-sm font-bold text-white">${item.name}</h4>
+                                <span class="text-xs text-brand-400 font-semibold">${item.price} دج × ${item.qty}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2 space-x-reverse">
+                            <button onclick="changeQty(${item.id}, 1)" class="w-7 h-7 rounded-lg bg-slate-800 text-white font-bold text-xs hover:bg-slate-700">+</button>
+                            <span class="text-xs font-bold text-white w-5 text-center">${item.qty}</span>
+                            <button onclick="changeQty(${item.id}, -1)" class="w-7 h-7 rounded-lg bg-slate-800 text-white font-bold text-xs hover:bg-slate-700">-</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            totalPriceEl.innerText = totalPrice + ' دج';
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            const product = products.find(p => p.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty > product.stock) {
+                    item.qty = product.stock;
+                    alert('لقد وصلت للحد الأقصى للمخزون المتوفر.');
+                }
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+                updateCartUI();
+            }
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cartDrawer');
+            const panel = document.getElementById('cartPanel');
+            if (drawer.classList.contains('pointer-events-none')) {
+                drawer.classList.remove('pointer-events-none', 'opacity-0');
+                panel.classList.remove('-translate-x-full');
+            } else {
+                drawer.classList.add('opacity-0');
+                panel.classList.add('-translate-x-full');
+                setTimeout(() => drawer.classList.add('pointer-events-none'), 300);
+            }
+        }
+
+        function openCheckoutModal() {
+            if (cart.length === 0) {
+                alert('سلة المشتريات فارغة!');
+                return;
+            }
+            toggleCart();
+            document.getElementById('checkoutModal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').classList.add('hidden');
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+            const name = document.getElementById('orderName').value;
+            const phone = document.getElementById('orderPhone').value;
+            const address = document.getElementById('orderAddress` + `).value;
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const itemsSummary = cart.map(i => `${i.name} (${i.qty})`).join(', ');
+
+            alert(`شكراً لك ${name}! تم تسجيل طلبك بنجاح.
+المنتجات: ${itemsSummary}
+المجموع: ${totalPrice} دج
+سيتم التواصل معك على الرقم ${phone} لتأكيد التوصيل إلى ${address}.`);
+            cart = [];
+            updateCartUI();
+            closeCheckoutModal();
+            document.getElementById('orderForm').reset();
+        }
+
+        // Initial Render
+        renderProducts(products);
+    </script>
 </body>
 </html>
