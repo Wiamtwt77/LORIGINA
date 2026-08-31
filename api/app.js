@@ -1,4 +1,3 @@
-
 export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -16,7 +15,7 @@ export default async function handler(req, res) {
     const apiKey = process.env.opkey;
 
     if (!apiKey) {
-        return res.status(500).json({ error: 'API key (opkey) is not configured' });
+        return res.status(200).json({ reply: '⚠️ تنبيه: مفتاح opkey غير موجود في إعدادات Environment Variables في Vercel.' });
     }
 
     try {
@@ -41,10 +40,14 @@ export default async function handler(req, res) {
         });
 
         const data = await response.json();
-        const reply = data.choices?.[0]?.message?.content || "عذراً، لم أستطع معالجة الطلب في الوقت الحالي.";
 
+        if (data.error) {
+            return res.status(200).json({ reply: `خطأ من المنصة: ${data.error.message || JSON.stringify(data.error)}` });
+        }
+
+        const reply = data.choices?.[0]?.message?.content || "عذراً، لم أستطع معالجة الطلب في الوقت الحالي.";
         return res.status(200).json({ reply });
     } catch (error) {
-        return res.status(500).json({ error: 'Failed to communicate with AI service' });
+        return res.status(200).json({ reply: `خطأ في الاتصال: ${error.message}` });
     }
 }
