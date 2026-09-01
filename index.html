@@ -331,8 +331,8 @@
         let cart = [];
         let currentModalProduct = null;
         
-        // تم تحديث رابط المنتجات بالرابط الجديد الخاص بك
-        const productsApiURL = "https://script.google.com/macros/s/AKfycbxsL2gaEFs09qPtdwa-i_Fy4pCD5u_FrazYnnJixc17F9BvMzRNChmBymSruW2p6wZ4/exec";
+        // تم تحديث رابط المنتجات بالرابط الجديد المطلوب
+        const productsApiURL = "https://script.google.com/macros/s/AKfycbzf1tSkRxUI2bEQNqZ1wL2IOjZ0RVt0WRA7HeytTcQUiP6HViDZJLs7nb2v2pqSviKl/exec";
         const controlApiURL = "https://script.google.com/macros/s/AKfycbwAqENb9AdD1N-Md3BQX8hnrfZ13mckcaZdLZFVksedgndvdYTLVEJ3rxD60fUUbkurug/exec";
 
         function formatImageUrl(url) {
@@ -372,9 +372,10 @@
             products.forEach(product => {
                 const stock = product.stock !== undefined && product.stock !== "" ? Number(product.stock) : 999;
                 
-                // فحص عمود الحجز المسبق (pre-order) القادم من غوغل شيت
-                const preOrderVal = product['pre-order'] !== undefined ? product['pre-order'] : (product.pre_order !== undefined ? product.pre_order : '');
-                const isPreOrder = preOrderVal !== "" && preOrderVal !== null && preOrderVal !== undefined;
+                // فحص عمود الحجز المسبق للتأكد من التعامل الدقيق مع قيم مثل yes/no
+                const rawPreOrder = product['pre-order'] !== undefined ? product['pre-order'] : (product.pre_order !== undefined ? product.pre_order : '');
+                const preOrderStr = String(rawPreOrder).trim().toLowerCase();
+                const isPreOrder = preOrderStr === 'yes' || preOrderStr === 'نعم' || preOrderStr === '1' || (preOrderStr !== '' && preOrderStr !== 'no' && preOrderStr !== 'false');
                 
                 const isOutOfStock = stock <= 0 && !isPreOrder;
 
@@ -426,8 +427,9 @@
             document.getElementById('modalDesc').innerText = product.desc || 'لا توجد تفاصيل إضافية لهذا المنتج.';
             
             const stock = product.stock !== undefined && product.stock !== "" ? Number(product.stock) : 999;
-            const preOrderVal = product['pre-order'] !== undefined ? product['pre-order'] : (product.pre_order !== undefined ? product.pre_order : '');
-            const isPreOrder = preOrderVal !== "" && preOrderVal !== null && preOrderVal !== undefined;
+            const rawPreOrder = product['pre-order'] !== undefined ? product['pre-order'] : (product.pre_order !== undefined ? product.pre_order : '');
+            const preOrderStr = String(rawPreOrder).trim().toLowerCase();
+            const isPreOrder = preOrderStr === 'yes' || preOrderStr === 'نعم' || preOrderStr === '1' || (preOrderStr !== '' && preOrderStr !== 'no' && preOrderStr !== 'false');
             const isOutOfStock = stock <= 0 && !isPreOrder;
             
             const qtyInput = document.getElementById('modalQtyInput');
@@ -483,8 +485,9 @@
             if(!currentModalProduct) return;
             const qty = parseInt(document.getElementById('modalQtyInput').value) || 1;
             
-            const preOrderVal = currentModalProduct['pre-order'] !== undefined ? currentModalProduct['pre-order'] : (currentModalProduct.pre_order !== undefined ? currentModalProduct.pre_order : '');
-            const isPreOrder = preOrderVal !== "" && preOrderVal !== null && preOrderVal !== undefined;
+            const rawPreOrder = currentModalProduct['pre-order'] !== undefined ? currentModalProduct['pre-order'] : (currentModalProduct.pre_order !== undefined ? currentModalProduct.pre_order : '');
+            const preOrderStr = String(rawPreOrder).trim().toLowerCase();
+            const isPreOrder = preOrderStr === 'yes' || preOrderStr === 'نعم' || preOrderStr === '1' || (preOrderStr !== '' && preOrderStr !== 'no' && preOrderStr !== 'false');
 
             const existingItem = cart.find(item => item.id == currentModalProduct.id);
             
@@ -505,8 +508,9 @@
             const selectedQty = parseInt(qtyInput.value) || 1;
 
             if(product) {
-                const preOrderVal = product['pre-order'] !== undefined ? product['pre-order'] : (product.pre_order !== undefined ? product.pre_order : '');
-                const isPreOrder = preOrderVal !== "" && preOrderVal !== null && preOrderVal !== undefined;
+                const rawPreOrder = product['pre-order'] !== undefined ? product['pre-order'] : (product.pre_order !== undefined ? product.pre_order : '');
+                const preOrderStr = String(rawPreOrder).trim().toLowerCase();
+                const isPreOrder = preOrderStr === 'yes' || preOrderStr === 'نعم' || preOrderStr === '1' || (preOrderStr !== '' && preOrderStr !== 'no' && preOrderStr !== 'false');
 
                 const existingItem = cart.find(item => item.id == id);
                 if(existingItem) {
